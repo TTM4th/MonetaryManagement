@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\Process\Register.cs" />
+    <Compile Include="Definition\Definition.cs" />
     <Compile Include="RegisterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Business\Entity\" />
-    <Folder Include="Business\Process\" />
     <Folder Include="File\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

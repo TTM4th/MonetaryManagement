@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MonetaryManagement;
 
 namespace MonetaryManagement
 {
@@ -14,23 +15,27 @@ namespace MonetaryManagement
     {
 
         #region "内部変数"
+
         /// <summary>
-        /// 使用した金額あたりの情報構造体
+        /// InputGridviewに入力した項目をListで返す
         /// </summary>
-        private struct OneRecordData
+        private List<Definition.OneRecordData> InputDataList
         {
-           public string PaidDate;
-           public decimal Price;
-           public string Classification;
+            get
+            {
+                var inputDataList = new List<Definition.OneRecordData>();
+                Definition.OneRecordData onerow;
+                foreach (DataGridViewRow row in InputGridView.Rows)
+                {
+                    onerow.PaidDate = row.Cells[0].Value.ToString();
+                    onerow.Price = Convert.ToDecimal(row.Cells[1].Value);
+                    onerow.Classification = row.Cells[2].Value.ToString();
+                    inputDataList.Add(onerow);
+                }
+                return inputDataList;
+            }
         }
-        /// <summary>
-        /// 現在入力中の情報を保有するプロパティ変数
-        /// </summary>
-        private OneRecordData _NowRecordData;
-        /// <summary>
-        /// 現在入力中の情報を保有するプロパティ
-        /// </summary>
-        private OneRecordData NowRecordData {get{return _NowRecordData;} }
+
         /// <summary>
         /// 項目リストボックス用文字列ソース
         /// </summary>
@@ -139,7 +144,7 @@ namespace MonetaryManagement
         private void EnterButton_Click(object sender, EventArgs e)
         {
             if(PaidDate_gv==string.Empty || Classification_gv == string.Empty || decimal.TryParse(Price_gv, out decimal price) == false) { MessageBox.Show("入力欄に有効な値を入力してください"); }
-            else { InputGridView.Rows.Add(); Price_gv = price.ToString();}
+            else { InputGridView.Rows.Add(); Price_gv = price.ToString(); }
         }
         /// <summary>
         /// 消去ボタンクリック時イベント
@@ -157,9 +162,17 @@ namespace MonetaryManagement
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void RegisterButton_Click(object sender, EventArgs e)
-        { 
-           
+        {
+
         }
+
+        //string rtnstr = string.Empty;
+        //foreach (string str in InputDataList.Select(x => string.Concat(x.PaidDate, " ", x.Price.ToString(), " ", x.Classification)))
+        //{
+        //    rtnstr = string.Concat(rtnstr, str, Environment.NewLine);
+        //}
+        //MessageBox.Show(rtnstr);
+
 
     }
 }

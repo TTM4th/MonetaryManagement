@@ -85,7 +85,7 @@
             this.InputGridView.Location = new System.Drawing.Point(13, 19);
             this.InputGridView.Name = "InputGridView";
             this.InputGridView.RowTemplate.Height = 21;
-            this.InputGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.InputGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.InputGridView.Size = new System.Drawing.Size(273, 292);
             this.InputGridView.TabIndex = 3;
             // 
