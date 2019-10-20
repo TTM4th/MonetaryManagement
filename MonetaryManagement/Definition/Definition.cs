@@ -9,7 +9,7 @@ namespace MonetaryManagement.Definition
         /// <summary>
         /// 使用した金額あたりの情報構造体
         /// </summary>
-       public struct OneRecordData
+       public class OneRecordData
         {
            public OneRecordData(string paidDate,decimal price,string classification)
             {
@@ -17,9 +17,10 @@ namespace MonetaryManagement.Definition
                 this.Price = price;
                 this.Classification = classification;
             }
-           public string PaidDate;
-           public decimal Price;
-           public string Classification;
+           public string PaidDate { get; }
+           public decimal Price { get; }
+           public string Classification { get; }
+           public bool IsEmpty(){return PaidDate == null || Classification == null;}
         }
 
         /// <summary>
