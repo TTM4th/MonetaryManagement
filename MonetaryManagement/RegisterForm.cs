@@ -8,134 +8,128 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MonetaryManagement;
+using MonetaryManagement.Definition;
+using MonetaryManagement.Business.Process;
 
 namespace MonetaryManagement
 {
     public partial class RegisterForm : Form
     {
-
+        
         #region "内部変数"
 
-        /// <summary>
-        /// InputGridviewに入力した項目をListで返す
-        /// </summary>
-        private List<Definition.OneRecordData> InputDataList
-        {
-            get
-            {
-                var inputDataList = new List<Definition.OneRecordData>();
-                Definition.OneRecordData onerow;
-                foreach (DataGridViewRow row in InputGridView.Rows)
-                {
-                    onerow.PaidDate = row.Cells[0].Value.ToString();
-                    onerow.Price = Convert.ToDecimal(row.Cells[1].Value);
-                    onerow.Classification = row.Cells[2].Value.ToString();
-                    inputDataList.Add(onerow);
-                }
-                return inputDataList;
-            }
-        }
+        private IEnumerable<Classifications.Classification> Classifications { get;  }
 
         /// <summary>
-        /// 項目リストボックス用文字列ソース
+        /// セット先のインデックス情報を状況に応じて返す（非選択の場合/選択している場合）
         /// </summary>
-        private Dictionary<string,string> ClassificationDicitonary
-        {
-            get
-            {
-                return new Dictionary<string, string> { {"1", "運賃"},
-                                                        { "2","飲食費" },
-                                                        { "3","日用品・家電"},
-                                                        { "4","娯楽" },
-                                                        { "5","衣類" } ,
-                                                        {"6","消耗品" },
-                                                        { "7","サービス費"},
-                                                        { "?","未分類"} };
-            }
-        }
+        /// <returns>セット先の行インデックス情報</returns>
+        private int TargetIndex { get { return InputGridView.CurrentRow.Index; } }
+
         /// <summary>
         /// GridViewの支払い日付欄の日付を取得・設定する
         /// </summary>
         private string PaidDate_gv
         {
-            get{var tmp = InputGridView.Rows[TargetIndex()].Cells[0].Value;
+            get{var tmp = InputGridView.Rows[TargetIndex].Cells[0].Value;
                 if (tmp == null) { return string.Empty; }
                 else { return tmp.ToString(); }
             }
-            set{ InputGridView.Rows[TargetIndex()].Cells[0].Value = value;}
+            set{ InputGridView.Rows[TargetIndex].Cells[0].Value = value;}
         }
+
         /// <summary>
         /// GridViewの区分欄の日付を取得・設定する
         /// </summary>
         private string Classification_gv
         {
-            get { var tmp= InputGridView.Rows[TargetIndex()].Cells[2].Value;
+            get { var tmp= InputGridView.Rows[TargetIndex].Cells[2].Value;
                 if (tmp == null) { return string.Empty; }
                 else { return tmp.ToString(); }
             }
-            set { InputGridView.Rows[TargetIndex()].Cells[2].Value = value; }
+            set { InputGridView.Rows[TargetIndex].Cells[2].Value = value; }
         }
+
         /// <summary>
         /// GridViewの金額欄に入力した文字列を取得する
         /// </summary>
         private string Price_gv
         {
-            get {var tmp = InputGridView.Rows[TargetIndex()].Cells[1].Value;
+            get {var tmp = InputGridView.Rows[TargetIndex].Cells[1].Value;
                 if (tmp == null) { return string.Empty; }
                 else { return tmp.ToString(); }}
-            set { InputGridView.Rows[TargetIndex()].Cells[1].Value=value; }
+            set { InputGridView.Rows[TargetIndex].Cells[1].Value=value; }
         }
+
         /// <summary>
         /// ListBoxで選択した区分コードを取得する
         /// </summary>
         private string SelectedClassification
-        {
-            get { return KubunListBox.SelectedItem.ToString().Substring(0, 1); }
+        { get {
+                return Classifications.Where(item => item.KeyAndFormItemPair.Value == KubunListBox.SelectedItem.ToString())
+                    .Select(item => item.KeyAndFormItemPair.Key).Single();
+            }
         }
+
         /// <summary>
         /// SelectDateCalenderで選択した日付をYYYY/MM/DD形式の文字列でとる
         /// </summary>
         private string SelectedDate
+        {get { return SelectDateCalender.SelectionStart.ToShortDateString(); }}
+
+        /// <summary>
+        /// InputGridviewに入力した項目をiEnumerableで返す
+        /// </summary>
+        private IEnumerable<OneRecordData> InputDataList
         {
-            get { return SelectDateCalender.SelectionStart.ToShortDateString(); }
+            get
+            {return InputGridView.Rows.OfType<DataGridViewRow>()
+                    .Select(row => new OneRecordData(row.Cells[0].Value.ToString(),
+                                                              Convert.ToDecimal(row.Cells[1].Value),
+                                                              row.Cells[2].Value.ToString()));}
         }
+        
+
         #endregion
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public RegisterForm()
         {
             InitializeComponent();
-            this.KubunListBox.Items.AddRange(ClassificationDicitonary.Select(kvp => string.Concat(kvp.Key, ":", kvp.Value)).ToArray());
+            var items = new Classifications();
+            Classifications = items.ClassificationItems;
+        }
+
+        #region"イベント"
+        /// <summary>
+        /// 登録フォーム読み取り時イベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RegisterForm_Load(object sender, EventArgs e)
+        {
+            this.KubunListBox.Items.
+                AddRange(Classifications.Select(item => item.FormItem).ToArray());
             InputGridView.Rows.Add();
         }
+
         /// <summary>
         /// カレンダーの選択日付を変更した場合のイベント処理
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SelectDateCalender_DateSelected(object sender, DateRangeEventArgs e)
-        {
-            PaidDate_gv = SelectedDate;
-        }
+        private void SelectDateCalender_DateSelected(object sender, DateRangeEventArgs e){PaidDate_gv = SelectedDate;}
+
         /// <summary>
         /// 区分項目の選択項目を変更した場合のイベント処理
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Classification_gv = SelectedClassification;
-        }
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e){Classification_gv = SelectedClassification;}
 
-        /// <summary>
-        /// セット先のインデックス情報を状況に応じて返す（非選択の場合/選択している場合）
-        /// </summary>
-        /// <returns>セット先の行インデックス情報</returns>
-        private int TargetIndex()
-        {
-          return InputGridView.CurrentRow.Index;
-        }
+
         /// <summary>
         /// 追加ボタンクリック時のイベント
         /// </summary>
@@ -143,8 +137,11 @@ namespace MonetaryManagement
         /// <param name="e"></param>
         private void EnterButton_Click(object sender, EventArgs e)
         {
-            if(PaidDate_gv==string.Empty || Classification_gv == string.Empty || decimal.TryParse(Price_gv, out decimal price) == false) { MessageBox.Show("入力欄に有効な値を入力してください"); }
-            else { InputGridView.Rows.Add(); Price_gv = price.ToString(); }
+            if(PaidDate_gv==string.Empty || 
+                Classification_gv == string.Empty || 
+                decimal.TryParse(Price_gv, out decimal price) == false) { MessageBox.Show("入力欄に有効な値を入力してください"); }
+            else { InputGridView.Rows.Add();
+                   InputGridView.CurrentCell=InputGridView.Rows[TargetIndex+1].Cells[0]; }
         }
         /// <summary>
         /// 消去ボタンクリック時イベント
@@ -153,9 +150,11 @@ namespace MonetaryManagement
         /// <param name="e"></param>
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            if (InputGridView.Rows.Count-1 == 0) { InputGridView.Rows.Remove(InputGridView.CurrentRow); InputGridView.Rows.Add(); }
+            if (InputGridView.Rows.OfType<DataGridViewRow>().Any()==false)
+            { InputGridView.Rows.Remove(InputGridView.CurrentRow); InputGridView.Rows.Add(); }
             else { InputGridView.Rows.Remove(InputGridView.CurrentRow); }
         }
+
         /// <summary>
         /// 登録ボタンクリックイベント
         /// </summary>
@@ -163,16 +162,11 @@ namespace MonetaryManagement
         /// <param name="e"></param>
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-
+            var register =new Register(this.InputDataList);
+            register.RegistData();
         }
 
-        //string rtnstr = string.Empty;
-        //foreach (string str in InputDataList.Select(x => string.Concat(x.PaidDate, " ", x.Price.ToString(), " ", x.Classification)))
-        //{
-        //    rtnstr = string.Concat(rtnstr, str, Environment.NewLine);
-        //}
-        //MessageBox.Show(rtnstr);
-
+        #endregion
 
     }
 }

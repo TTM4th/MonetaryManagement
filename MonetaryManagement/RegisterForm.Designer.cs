@@ -169,6 +169,7 @@
             this.MaximizeBox = false;
             this.Name = "RegisterForm";
             this.Text = "データ入力";
+            this.Load += new System.EventHandler(this.RegisterForm_Load);
             this.KubunGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.InputGridView)).EndInit();
             this.InputGroupBox.ResumeLayout(false);
