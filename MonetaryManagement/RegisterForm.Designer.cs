@@ -52,7 +52,7 @@
             this.KubunListBox.Name = "KubunListBox";
             this.KubunListBox.Size = new System.Drawing.Size(101, 108);
             this.KubunListBox.TabIndex = 0;
-            this.KubunListBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.KubunListBox.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
             // 
             // KubunGroupBox
             // 
@@ -178,11 +178,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox KubunListBox;
         private System.Windows.Forms.GroupBox KubunGroupBox;
-        private System.Windows.Forms.MonthCalendar SelectDateCalender;
-        private System.Windows.Forms.DataGridView InputGridView;
         private System.Windows.Forms.Button EnterButton;
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
@@ -190,6 +186,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Classification;
         private System.Windows.Forms.Button RegisterButton;
         private System.Windows.Forms.GroupBox InputGroupBox;
+        internal System.Windows.Forms.DataGridView InputGridView;
+        internal System.Windows.Forms.MonthCalendar SelectDateCalender;
+        internal System.Windows.Forms.ListBox KubunListBox;
     }
 }
 

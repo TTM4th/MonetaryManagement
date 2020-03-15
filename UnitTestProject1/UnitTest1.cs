@@ -11,7 +11,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestMethod1()
         {
-            var cf = new CSVFormatter(@"D:\Documents\WorkFolder\'19_12.csv");
+            var cf = new CSVFormatter(@"D:\Documents\WorkFolder\'20_2.txt");
             cf.Write();
         }
     }
