@@ -1,4 +1,5 @@
 ﻿using MonetaryManagement.Business.Process;
+using MonetaryManagement.Definition;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +59,7 @@ namespace MonetaryManagement.Controller
             {
                 ParentForm.InputGridView.Rows.Add();
                 int newRowIndex = ParentForm.InputGridView.Rows.GetLastRow(DataGridViewElementStates.None);
-                ParentForm.InputGridView.CurrentCell = ParentForm.InputGridView.Rows[newRowIndex].Cells[0];
+                ParentForm.InputGridView.CurrentCell = ParentForm.InputGridView.Rows[newRowIndex].Cells[(int)InputGridViewIndexes.Date];
             }
         }
 

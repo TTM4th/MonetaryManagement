@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace MonetaryManagement.Definition
 {
+        internal enum InputGridViewIndexes
+        {
+            Date,
+            Price,
+            Classification
+        }
+
         /// <summary>
         /// 使用した金額あたりの情報構造体
         /// </summary>

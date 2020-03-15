@@ -39,25 +39,11 @@ namespace MonetaryManagement.Controller
         {
             get
             {
-                var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[0].Value;
+                var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewIndexes.Date].Value;
                 if (tmp == null) { return string.Empty; }
                 else { return tmp.ToString(); }
             }
-            set { ParentForm.InputGridView.Rows[TargetIndex].Cells[0].Value = value; }
-        }
-
-        /// <summary>
-        /// GridViewの区分欄の区分を取得・設定する
-        /// </summary>
-        internal string Classification_gv
-        {
-            get
-            {
-                var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[2].Value;
-                if (tmp == null) { return string.Empty; }
-                else { return tmp.ToString(); }
-            }
-            set { ParentForm.InputGridView.Rows[TargetIndex].Cells[2].Value = value; }
+            set { ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewIndexes.Date].Value = value; }
         }
 
         /// <summary>
@@ -67,12 +53,27 @@ namespace MonetaryManagement.Controller
         {
             get
             {
-                var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[1].Value;
+                var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewIndexes.Price].Value;
                 if (tmp == null) { return string.Empty; }
                 else { return tmp.ToString(); }
             }
-            set { ParentForm.InputGridView.Rows[TargetIndex].Cells[1].Value = value; }
+            set { ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewIndexes.Price].Value = value; }
         }
+
+        /// <summary>
+        /// GridViewの区分欄の区分を取得・設定する
+        /// </summary>
+        internal string Classification_gv
+        {
+            get
+            {
+                var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewIndexes.Classification].Value;
+                if (tmp == null) { return string.Empty; }
+                else { return tmp.ToString(); }
+            }
+            set { ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewIndexes.Classification].Value = value; }
+        }
+
         #endregion
 
         #region 各種コントロールで選択した値プロパティ
@@ -102,9 +103,9 @@ namespace MonetaryManagement.Controller
             get
             {
                 return ParentForm.InputGridView.Rows.OfType<DataGridViewRow>()
-                       .Select(row => new OneRecordData(row.Cells[0].Value.ToString(),
-                                                                 Convert.ToDecimal(row.Cells[1].Value),
-                                                                 row.Cells[2].Value.ToString()));
+                       .Select(row => new OneRecordData(row.Cells[(int)InputGridViewIndexes.Date].Value.ToString(),
+                                                                 Convert.ToDecimal(row.Cells[(int)InputGridViewIndexes.Price].Value),
+                                                                 row.Cells[(int)InputGridViewIndexes.Classification].Value.ToString()));
             }
         }
         #endregion
