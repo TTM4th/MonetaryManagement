@@ -68,9 +68,8 @@ namespace MonetaryManagement.Controller
         /// </summary>
         internal void DeleteDataRow()
         {
-            if (ParentForm.InputGridView.Rows.OfType<DataGridViewRow>().Any() == false)
-            { ParentForm.InputGridView.Rows.Remove(ParentForm.InputGridView.CurrentRow); ParentForm.InputGridView.Rows.Add(); }
-            else { ParentForm.InputGridView.Rows.Remove(ParentForm.InputGridView.CurrentRow); }
+            ParentForm.InputGridView.Rows.Remove(ParentForm.InputGridView.CurrentRow);
+            if (ParentForm.InputGridView.Rows.OfType<DataGridViewRow>().Any() == false){ ParentForm.InputGridView.Rows.Add(); }
         }
 
         /// <summary>
