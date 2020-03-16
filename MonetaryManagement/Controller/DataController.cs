@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using MonetaryManagement.Definition;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MonetaryManagement.Controller
@@ -30,8 +28,7 @@ namespace MonetaryManagement.Controller
 
         internal IEnumerable<Classifications.Classification> Classifications { get; }
 
-
-        #region DataGridViewの各列項目プロパティ
+        #region DataGridViewの選択行各列項目プロパティ
         /// <summary>
         /// GridViewの支払い日付欄の日付を取得・設定する
         /// </summary>
@@ -39,11 +36,11 @@ namespace MonetaryManagement.Controller
         {
             get
             {
-                var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewIndexes.Date].Value;
+                var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewCellIndexes.Date].Value;
                 if (tmp == null) { return string.Empty; }
                 else { return tmp.ToString(); }
             }
-            set { ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewIndexes.Date].Value = value; }
+            set { ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewCellIndexes.Date].Value = value; }
         }
 
         /// <summary>
@@ -53,11 +50,11 @@ namespace MonetaryManagement.Controller
         {
             get
             {
-                var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewIndexes.Price].Value;
+                var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewCellIndexes.Price].Value;
                 if (tmp == null) { return string.Empty; }
                 else { return tmp.ToString(); }
             }
-            set { ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewIndexes.Price].Value = value; }
+            set { ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewCellIndexes.Price].Value = value; }
         }
 
         /// <summary>
@@ -67,11 +64,11 @@ namespace MonetaryManagement.Controller
         {
             get
             {
-                var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewIndexes.Classification].Value;
+                var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewCellIndexes.Classification].Value;
                 if (tmp == null) { return string.Empty; }
                 else { return tmp.ToString(); }
             }
-            set { ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewIndexes.Classification].Value = value; }
+            set { ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewCellIndexes.Classification].Value = value; }
         }
 
         #endregion
@@ -95,6 +92,9 @@ namespace MonetaryManagement.Controller
             }
         }
 
+
+        #endregion
+
         /// <summary>
         /// InputGridviewに入力した項目をiEnumerableで返す
         /// </summary>
@@ -103,12 +103,10 @@ namespace MonetaryManagement.Controller
             get
             {
                 return ParentForm.InputGridView.Rows.OfType<DataGridViewRow>()
-                       .Select(row => new OneRecordData(row.Cells[(int)InputGridViewIndexes.Date].Value.ToString(),
-                                                                 Convert.ToDecimal(row.Cells[(int)InputGridViewIndexes.Price].Value),
-                                                                 row.Cells[(int)InputGridViewIndexes.Classification].Value.ToString()));
+                       .Select(row => new OneRecordData(row.Cells[(int)InputGridViewCellIndexes.Date].Value.ToString(),
+                                                                 Convert.ToDecimal(row.Cells[(int)InputGridViewCellIndexes.Price].Value),
+                                                                 row.Cells[(int)InputGridViewCellIndexes.Classification].Value.ToString()));
             }
         }
-        #endregion
-
     }
 }

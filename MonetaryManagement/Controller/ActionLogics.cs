@@ -1,10 +1,6 @@
 ﻿using MonetaryManagement.Business.Process;
 using MonetaryManagement.Definition;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MonetaryManagement.Controller
@@ -33,7 +29,7 @@ namespace MonetaryManagement.Controller
         internal void LoadParentFormAction()
         {
             ParentForm.KubunListBox.Items.
-            AddRange(DataController.Classifications.Select(item => item.FormItem).ToArray());
+                AddRange(DataController.Classifications.Select(item => item.FormItem).ToArray());
             ParentForm.InputGridView.Rows.Add();
         }
 
@@ -59,7 +55,7 @@ namespace MonetaryManagement.Controller
             {
                 ParentForm.InputGridView.Rows.Add();
                 int newRowIndex = ParentForm.InputGridView.Rows.GetLastRow(DataGridViewElementStates.None);
-                ParentForm.InputGridView.CurrentCell = ParentForm.InputGridView.Rows[newRowIndex].Cells[(int)InputGridViewIndexes.Date];
+                ParentForm.InputGridView.CurrentCell = ParentForm.InputGridView.Rows[newRowIndex].Cells[(int)InputGridViewCellIndexes.Date];
             }
         }
 

@@ -5,8 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MonetaryManagement.Definition
-{
-        internal enum InputGridViewIndexes
+{       
+        
+        /// <summary>
+        /// RegisterフォームのDataGridViewのセルのインデックス情報
+        /// </summary>
+        internal enum InputGridViewCellIndexes
         {
             Date,
             Price,
@@ -35,6 +39,30 @@ namespace MonetaryManagement.Definition
         /// </summary>
         internal class Classifications
         {
+            /// <summary>
+            /// コンストラクタ
+            /// </summary>
+            internal Classifications()
+            {
+                ClassificationItems = new List<Classification>
+                    {
+                        new Classification("1", "運賃"),
+                        new Classification("2", "飲食費"),
+                        new Classification("3", "日用品・家電"),
+                        new Classification("4", "娯楽"),
+                        new Classification("5", "衣類"),
+                        new Classification("6", "消耗品"),
+                        new Classification("7", "サービス費"),
+                        new Classification("8", "収入"),
+                        new Classification("?", "未分類")
+                    };
+            }
+
+            /// <summary>
+            /// 区分項目情報
+            /// </summary>
+            internal IEnumerable<Classification> ClassificationItems;
+
             /// <summary>
             /// 項目フラグと項目名（項目フラグと項目名のペアを管理する構造体）
             /// </summary>
@@ -65,28 +93,5 @@ namespace MonetaryManagement.Definition
                 internal KeyValuePair<string, string> KeyAndFormItemPair;
             }
 
-            /// <summary>
-            /// コンストラクタ
-            /// </summary>
-            internal Classifications()
-            {
-                ClassificationItems = new List<Classification>
-                {
-                    new Classification("1", "運賃"),
-                    new Classification("2", "飲食費"),
-                    new Classification("3", "日用品・家電"),
-                    new Classification("4", "娯楽"),
-                    new Classification("5", "衣類"),
-                    new Classification("6", "消耗品"),
-                    new Classification("7", "サービス費"),
-                    new Classification("8", "収入"),
-                    new Classification("?", "未分類")
-                };
-            }
-            
-            /// <summary>
-            /// 区分項目情報
-            /// </summary>
-            internal IEnumerable<Classification> ClassificationItems;
         }
 }
