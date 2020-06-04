@@ -13,7 +13,7 @@ using MonetaryManagement.Business.Process;
 
 namespace MonetaryManagement
 {
-    public partial class RegisterForm : Form
+    internal partial class RegisterForm : Form
     {
         
         #region "内部変数"

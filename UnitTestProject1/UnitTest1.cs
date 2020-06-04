@@ -11,8 +11,14 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestMethod1()
         {
-            var cf = new CSVFormatter(@"D:\Documents\WorkFolder\'20_2.txt");
+            var cf = new CSVFormatter(@"D:\Documents\WorkFolder\'20_5.txt");
             cf.Write();
+        }
+
+        [TestMethod]
+        public void TestRun()
+        {
+            MonetaryManagement.FrontEnd.RegisterFormAccessor.RunRegisterForm("2020-06");
         }
     }
 

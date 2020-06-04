@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5797E5D4-ACB4-4344-AC65-7E3364243EC5}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>MonetaryManagement</RootNamespace>
     <AssemblyName>MonetaryManagement</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -50,6 +53,8 @@
     <Compile Include="Controller\ActionLogics.cs" />
     <Compile Include="Controller\DataController.cs" />
     <Compile Include="Definition\Definition.cs" />
+    <Compile Include="FrontEnd\RegisterFormAccessor.cs" />
+    <Compile Include="FrontEnd\State.cs" />
     <Compile Include="RegisterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +91,12 @@
   <ItemGroup>
     <Folder Include="Business\Entity\" />
     <Folder Include="File\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DBConnector\DBConnector\DBConnector.csproj">
+      <Project>{f44458cf-e042-4ae2-bd1b-d915e1d7eb71}</Project>
+      <Name>DBConnector</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -98,14 +98,14 @@ namespace MonetaryManagement.Controller
         /// <summary>
         /// InputGridviewに入力した項目をiEnumerableで返す
         /// </summary>
-        internal IEnumerable<OneRecordData> InputDataList
+        internal IReadOnlyList<OneRecordData> InputDataList
         {
             get
             {
                 return ParentForm.InputGridView.Rows.OfType<DataGridViewRow>()
                        .Select(row => new OneRecordData(row.Cells[(int)InputGridViewCellIndexes.Date].Value.ToString(),
                                                                  Convert.ToDecimal(row.Cells[(int)InputGridViewCellIndexes.Price].Value),
-                                                                 row.Cells[(int)InputGridViewCellIndexes.Classification].Value.ToString()));
+                                                                 row.Cells[(int)InputGridViewCellIndexes.Classification].Value.ToString())).ToList<OneRecordData>();
             }
         }
     }
