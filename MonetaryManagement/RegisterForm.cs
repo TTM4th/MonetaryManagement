@@ -20,6 +20,9 @@ namespace MonetaryManagement
 
         private IEnumerable<Classifications.Classification> Classifications { get;  }
 
+        /// <summary>
+        /// 本オブジェクトのコントロールイベント時に行う処理ロジッククラスインスタンス
+        /// </summary>
         private Controller.ActionLogics ActionLogics { get; }
 
         #endregion
@@ -27,10 +30,19 @@ namespace MonetaryManagement
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public RegisterForm()
+        internal RegisterForm()
         {
             InitializeComponent();
-            ActionLogics = new Controller.ActionLogics(this);
+            ActionLogics = new Controller.ActionLogics(this,false);
+        }
+
+        /// <summary>
+        /// コンストラクタ(月単位削除挿入可能/挿入のみ のモード選択実装のため)
+        /// </summary>
+        internal RegisterForm(bool iswholeEditMode)
+        {
+            InitializeComponent();
+            ActionLogics = new Controller.ActionLogics(this, iswholeEditMode);
         }
 
         #region"イベント"

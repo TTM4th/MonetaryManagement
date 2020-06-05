@@ -11,7 +11,8 @@ namespace MonetaryManagement.FrontEnd
         public static void RunRegisterForm(string TargetTableName)
         {
             State.SetTableName(TargetTableName);
-            var ins=new RegisterForm();
+            State.SetIsMonthlyWholeEditMode(false);
+            var ins=new RegisterForm(State.IsMonthlyWholeEditMode);
             ins.ShowDialog();
         }
     }

@@ -20,18 +20,18 @@ namespace MonetaryManagement.Definition
         /// <summary>
         /// 使用した金額あたりの情報構造体
         /// </summary>
-       public class OneRecordData
+       internal class OneRecordData
         {
-           public OneRecordData(string paidDate,decimal price,string classification)
+           internal OneRecordData(string paidDate,decimal price,string classification)
             {
                 this.PaidDate = paidDate;
                 this.Price = price;
                 this.Classification = classification;
             }
-           public string PaidDate { get; }
-           public decimal Price { get; }
-           public string Classification { get; }
-           public bool IsEmpty(){return PaidDate == null || Classification == null;}
+            internal string PaidDate { get; }
+            internal decimal Price { get; }
+            internal string Classification { get; }
+            internal bool IsEmpty(){return PaidDate == null || Classification == null;}
         }
 
         /// <summary>

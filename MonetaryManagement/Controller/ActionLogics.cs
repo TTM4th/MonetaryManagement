@@ -7,18 +7,27 @@ namespace MonetaryManagement.Controller
 {
     class ActionLogics
     {
-        //送信元のフォームオブジェクト
+        /// <summary>
+        /// 送信元のフォームオブジェクトインスタンス
+        /// </summary>
         private RegisterForm ParentForm { get; }
+
+        /// <summary>
+        /// 送信元フォームオブジェクトで入力したデータを管理するインスタンス
+        /// </summary>
         private DataController DataController { get; }
+
+        private bool IsMonthlyWholeEditMode  { get; }
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="parntFormObj">親にしたいRegisterForm</param>
-        internal ActionLogics(RegisterForm parntFormObj)
+        internal ActionLogics(RegisterForm parntFormObj,bool iswholeEditMode)
         {
             ParentForm = parntFormObj;
             DataController = new DataController(ParentForm);
+            IsMonthlyWholeEditMode = iswholeEditMode;
         }
 
         #region Action
@@ -75,6 +84,7 @@ namespace MonetaryManagement.Controller
         {
             var register = new Register(this.DataController.InputDataList);
             register.RegistData();
+            if (IsMonthlyWholeEditMode == false) { ParentForm.InputGridView.Rows.Clear();ParentForm.InputGridView.Rows.Add(); }
         }
         #endregion
 
