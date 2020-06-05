@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MonetaryManagement.Properties
+namespace MainMenu.Properties
 {
 
 

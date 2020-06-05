@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MonetaryManagement.Definition;
+using FundRegister.Definition;
 using System.Windows.Forms;
-
-namespace MonetaryManagement.Controller
+using FundRegister.Business.Process;
+namespace FundRegister.Controller
 {
     class DataController
     {
@@ -105,7 +105,21 @@ namespace MonetaryManagement.Controller
                 return ParentForm.InputGridView.Rows.OfType<DataGridViewRow>()
                        .Select(row => new OneRecordData(row.Cells[(int)InputGridViewCellIndexes.Date].Value.ToString(),
                                                                  Convert.ToDecimal(row.Cells[(int)InputGridViewCellIndexes.Price].Value),
-                                                                 row.Cells[(int)InputGridViewCellIndexes.Classification].Value.ToString())).ToList<OneRecordData>();
+                                                                 row.Cells[(int)InputGridViewCellIndexes.Classification].Value.ToString())).Where(data => data.IsEmpty() == false).ToList<OneRecordData>();
+            }
+        }
+
+
+        /// <summary>
+        /// DBから取得したデータをGridに挿入する
+        /// </summary>
+        internal void ReflectGridFromDB()
+        {
+            var entities = new Getter().GetData();
+            foreach (OneRecordData item in entities)
+            {
+
+                ParentForm.InputGridView.Rows.Add(item.PaidDate,item.Price,item.Classification);
             }
         }
     }

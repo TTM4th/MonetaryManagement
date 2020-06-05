@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MonetaryManagement;
-using MonetaryManagement.Definition;
-using MonetaryManagement.Business.Process;
+using FundRegister;
+using FundRegister.Definition;
+using FundRegister.Business.Process;
 
-namespace MonetaryManagement
+namespace FundRegister
 {
     internal partial class RegisterForm : Form
     {

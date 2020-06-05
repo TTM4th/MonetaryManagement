@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MonetaryManagement.FrontEnd
+namespace FundRegister.FrontEnd
 {
     public class RegisterFormAccessor
     {
-        public static void RunRegisterForm(string TargetTableName)
+        public static void RunRegisterForm(string TargetTableName,bool isWholeEdit)
         {
             State.SetTableName(TargetTableName);
-            State.SetIsMonthlyWholeEditMode(false);
+            State.SetIsMonthlyWholeEditMode(isWholeEdit);
             var ins=new RegisterForm(State.IsMonthlyWholeEditMode);
             ins.ShowDialog();
         }

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MonetaryManagement.Definition;
+using FundRegister.Definition;
 using DBConnector.Entity;
 using DBConnector.Accessor;
-namespace MonetaryManagement.Business.Process
+using DBConnector.Controller;
+namespace FundRegister.Business.Process
 {
     internal class Register
     {
@@ -12,6 +13,9 @@ namespace MonetaryManagement.Business.Process
         /// </summary>
         private IReadOnlyList<OneRecordData> RegisttedData { get;}
 
+        /// <summary>
+        /// 金銭管理データ取得部品
+        /// </summary>
         private MoneyUsedDataAccessor DataAccessor;
 
         /// <summary>
@@ -27,11 +31,16 @@ namespace MonetaryManagement.Business.Process
         /// <summary>
         /// データを登録する
         /// </summary>
-        internal void RegistData()
+        internal void RegistData(bool isWholeEditMode)
         {
+            if (isWholeEditMode) { new MoneyUsedDataTableManager().InitializeTable(FrontEnd.State.TargetTableName); }
             DataAccessor.UploadMonetaryData(ConvertMoneyUsedData());
         }
         
+        /// <summary>
+        /// OneRecordからMoneyUsedData型の列挙オブジェクトに変換する
+        /// </summary>
+        /// <returns></returns>
         internal IEnumerable<MoneyUsedData> ConvertMoneyUsedData()
         {
             return RegisttedData.Select((onerecord,index) => new MoneyUsedData {ID=index,Date=onerecord.PaidDate,Price=onerecord.Price,Classification=onerecord.Classification});

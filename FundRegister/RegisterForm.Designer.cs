@@ -1,4 +1,4 @@
-﻿namespace MonetaryManagement
+﻿namespace FundRegister
 {
     partial class RegisterForm
     {
@@ -48,18 +48,18 @@
             // 
             this.KubunListBox.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.KubunListBox.FormattingEnabled = true;
-            this.KubunListBox.Location = new System.Drawing.Point(26, 28);
+            this.KubunListBox.Location = new System.Drawing.Point(14, 28);
             this.KubunListBox.Name = "KubunListBox";
-            this.KubunListBox.Size = new System.Drawing.Size(101, 108);
+            this.KubunListBox.Size = new System.Drawing.Size(146, 121);
             this.KubunListBox.TabIndex = 0;
             this.KubunListBox.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
             // 
             // KubunGroupBox
             // 
             this.KubunGroupBox.Controls.Add(this.KubunListBox);
-            this.KubunGroupBox.Location = new System.Drawing.Point(247, 32);
+            this.KubunGroupBox.Location = new System.Drawing.Point(229, 32);
             this.KubunGroupBox.Name = "KubunGroupBox";
-            this.KubunGroupBox.Size = new System.Drawing.Size(156, 168);
+            this.KubunGroupBox.Size = new System.Drawing.Size(174, 168);
             this.KubunGroupBox.TabIndex = 1;
             this.KubunGroupBox.TabStop = false;
             this.KubunGroupBox.Text = "区分";

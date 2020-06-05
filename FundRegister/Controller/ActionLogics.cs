@@ -1,9 +1,9 @@
-﻿using MonetaryManagement.Business.Process;
-using MonetaryManagement.Definition;
+﻿using FundRegister.Business.Process;
+using FundRegister.Definition;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace MonetaryManagement.Controller
+namespace FundRegister.Controller
 {
     class ActionLogics
     {
@@ -39,7 +39,8 @@ namespace MonetaryManagement.Controller
         {
             ParentForm.KubunListBox.Items.
                 AddRange(DataController.Classifications.Select(item => item.FormItem).ToArray());
-            ParentForm.InputGridView.Rows.Add();
+            if (IsMonthlyWholeEditMode) { DataController.ReflectGridFromDB(); }
+            else { ParentForm.InputGridView.Rows.Add(); }
         }
 
         /// <summary>
@@ -83,10 +84,13 @@ namespace MonetaryManagement.Controller
         internal void RegistData()
         {
             var register = new Register(this.DataController.InputDataList);
-            register.RegistData();
-            if (IsMonthlyWholeEditMode == false) { ParentForm.InputGridView.Rows.Clear();ParentForm.InputGridView.Rows.Add(); }
+            register.RegistData(this.IsMonthlyWholeEditMode);
+            ParentForm.InputGridView.Rows.Clear();
+            if (IsMonthlyWholeEditMode) { DataController.ReflectGridFromDB(); }
+            else { ParentForm.InputGridView.Rows.Add(); } 
         }
         #endregion
+
 
     }
 }

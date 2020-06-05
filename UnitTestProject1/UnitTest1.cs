@@ -18,7 +18,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestRun()
         {
-            MonetaryManagement.FrontEnd.RegisterFormAccessor.RunRegisterForm("2020-06");
+            FundRegister.FrontEnd.RegisterFormAccessor.RunRegisterForm("TEST",true);
         }
     }
 

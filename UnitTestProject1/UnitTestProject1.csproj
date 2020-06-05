@@ -57,9 +57,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MonetaryManagement\MonetaryManagement.csproj">
+    <ProjectReference Include="..\FundRegister\FundRegister.csproj">
       <Project>{5797e5d4-acb4-4344-ac65-7e3364243ec5}</Project>
-      <Name>MonetaryManagement</Name>
+      <Name>FundRegister</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

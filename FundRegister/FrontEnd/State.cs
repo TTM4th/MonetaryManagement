@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MonetaryManagement.FrontEnd
+namespace FundRegister.FrontEnd
 {
     internal class State
     {
