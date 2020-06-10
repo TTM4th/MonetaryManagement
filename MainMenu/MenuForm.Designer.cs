@@ -1,6 +1,6 @@
 ﻿namespace MainMenu
 {
-    partial class Form1
+    partial class MenuForm
     {
         /// <summary>
         /// 必要なデザイナー変数です。
@@ -31,6 +31,8 @@
             this.TableNameComboBox = new System.Windows.Forms.ComboBox();
             this.SelectTableNameGroupBox = new System.Windows.Forms.GroupBox();
             this.RunFundRegister = new System.Windows.Forms.Button();
+            this.InsertMode = new System.Windows.Forms.RadioButton();
+            this.WholeEdit = new System.Windows.Forms.RadioButton();
             this.SelectTableNameGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,18 +50,20 @@
             // 
             // SelectTableNameGroupBox
             // 
+            this.SelectTableNameGroupBox.Controls.Add(this.WholeEdit);
+            this.SelectTableNameGroupBox.Controls.Add(this.InsertMode);
             this.SelectTableNameGroupBox.Controls.Add(this.RunFundRegister);
             this.SelectTableNameGroupBox.Controls.Add(this.TableNameComboBox);
             this.SelectTableNameGroupBox.Location = new System.Drawing.Point(12, 13);
             this.SelectTableNameGroupBox.Name = "SelectTableNameGroupBox";
-            this.SelectTableNameGroupBox.Size = new System.Drawing.Size(200, 100);
+            this.SelectTableNameGroupBox.Size = new System.Drawing.Size(201, 153);
             this.SelectTableNameGroupBox.TabIndex = 1;
             this.SelectTableNameGroupBox.TabStop = false;
             this.SelectTableNameGroupBox.Text = "テーブル選択";
             // 
             // RunFundRegister
             // 
-            this.RunFundRegister.Location = new System.Drawing.Point(119, 62);
+            this.RunFundRegister.Location = new System.Drawing.Point(119, 113);
             this.RunFundRegister.Name = "RunFundRegister";
             this.RunFundRegister.Size = new System.Drawing.Size(75, 23);
             this.RunFundRegister.TabIndex = 2;
@@ -67,16 +71,39 @@
             this.RunFundRegister.UseVisualStyleBackColor = true;
             this.RunFundRegister.Click += new System.EventHandler(this.RunFundRegister_Click);
             // 
-            // Form1
+            // InsertMode
+            // 
+            this.InsertMode.AutoSize = true;
+            this.InsertMode.Location = new System.Drawing.Point(15, 69);
+            this.InsertMode.Name = "InsertMode";
+            this.InsertMode.Size = new System.Drawing.Size(47, 16);
+            this.InsertMode.TabIndex = 2;
+            this.InsertMode.TabStop = true;
+            this.InsertMode.Text = "挿入";
+            this.InsertMode.UseVisualStyleBackColor = true;
+            // 
+            // WholeEdit
+            // 
+            this.WholeEdit.AutoSize = true;
+            this.WholeEdit.Location = new System.Drawing.Point(15, 91);
+            this.WholeEdit.Name = "WholeEdit";
+            this.WholeEdit.Size = new System.Drawing.Size(107, 16);
+            this.WholeEdit.TabIndex = 3;
+            this.WholeEdit.TabStop = true;
+            this.WholeEdit.Text = "挿入/削除/訂正";
+            this.WholeEdit.UseVisualStyleBackColor = true;
+            // 
+            // MenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.SelectTableNameGroupBox);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "MenuForm";
+            this.Text = "MainMenu";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.SelectTableNameGroupBox.ResumeLayout(false);
+            this.SelectTableNameGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -86,6 +113,8 @@
         private System.Windows.Forms.ComboBox TableNameComboBox;
         private System.Windows.Forms.GroupBox SelectTableNameGroupBox;
         private System.Windows.Forms.Button RunFundRegister;
+        private System.Windows.Forms.RadioButton WholeEdit;
+        private System.Windows.Forms.RadioButton InsertMode;
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonetaryManagementDefinitions.Flags;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,15 +47,15 @@ namespace FundRegister.Definition
             {
                 ClassificationItems = new List<Classification>
                     {
-                        new Classification("1", "運賃"),
-                        new Classification("2", "飲食費"),
-                        new Classification("3", "日用品・家電"),
-                        new Classification("4", "娯楽"),
-                        new Classification("5", "衣類"),
-                        new Classification("6", "消耗品"),
-                        new Classification("7", "サービス費"),
-                        new Classification("8", "収入"),
-                        new Classification("?", "未分類")
+                        new Classification(ClassificationFlags.UnchinFlag, ClassificationFlags.UnchinName),
+                        new Classification(ClassificationFlags.InshokuFlag, ClassificationFlags.InshokuName),
+                        new Classification(ClassificationFlags.NichiyouHinFlag, ClassificationFlags.NichiyouHinName),
+                        new Classification(ClassificationFlags.GorakuFlag,ClassificationFlags.GorakuName),
+                        new Classification(ClassificationFlags.IruiFlag, ClassificationFlags.IruiName),
+                        new Classification(ClassificationFlags.ShomouHinFlag, ClassificationFlags.ShoumouHinName),
+                        new Classification(ClassificationFlags.ServiceHiFlag, ClassificationFlags.ServiceHiName),
+                        new Classification(ClassificationFlags.AzukeIreFlag,ClassificationFlags.AzukeIreName),
+                        new Classification(ClassificationFlags.MibunruiFlag, ClassificationFlags.MibunruiName)
                     };
             }
 

@@ -83,11 +83,13 @@ namespace FundRegister.Controller
         /// </summary>
         internal void RegistData()
         {
+            Cursor.Current = Cursors.WaitCursor;
             var register = new Register(this.DataController.InputDataList);
             register.RegistData(this.IsMonthlyWholeEditMode);
             ParentForm.InputGridView.Rows.Clear();
             if (IsMonthlyWholeEditMode) { DataController.ReflectGridFromDB(); }
-            else { ParentForm.InputGridView.Rows.Add(); } 
+            else { ParentForm.InputGridView.Rows.Add(); }
+            Cursor.Current = Cursors.Default;
         }
         #endregion
 

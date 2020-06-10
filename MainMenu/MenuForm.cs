@@ -10,21 +10,22 @@ using System.Windows.Forms;
 
 namespace MainMenu
 {
-    public partial class Form1 : Form
+    public partial class MenuForm : Form
     {
-        public Form1()
+        public MenuForm()
         {
             InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            InsertMode.Checked = true;
             TableNameComboBox.SelectedIndex = 0;
         }
 
         private void RunFundRegister_Click(object sender, EventArgs e)
         {
-            FundRegister.FrontEnd.RegisterFormAccessor.RunRegisterForm((string)TableNameComboBox.SelectedItem, true);
+            FundRegister.FrontEnd.RegisterFormAccessor.RunRegisterForm((string)TableNameComboBox.SelectedItem, WholeEdit.Checked);
         }
     }
 }

@@ -99,6 +99,10 @@
       <Project>{f44458cf-e042-4ae2-bd1b-d915e1d7eb71}</Project>
       <Name>DBConnector</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MonetaryManagementDefinitions\MonetaryManagementDefinitions.csproj">
+      <Project>{4ae981d8-28c3-4ecb-b696-8254adb5f763}</Project>
+      <Name>MonetaryManagementDefinitions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
