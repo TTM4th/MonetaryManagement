@@ -42,6 +42,9 @@ namespace MainMenu.Controller
         /// </summary>
         private int NowMonth { get { return DateTime.Now.Month; } }
 
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         internal DataController()
         {
             AccessMonthlyUsedTableName = $"{NowYear}-{DateTime.Now.Month.ToString("00")}";
@@ -56,9 +59,13 @@ namespace MainMenu.Controller
         /// <returns></returns>
         internal decimal GetCurrentBalance()
         {
+            //現在月の月別利用金額データテーブルが存在しない場合は作成する
             if (MonthlyUsedManager.IsExistMonetaryTable(AccessMonthlyUsedTableName)==false) { MonthlyUsedManager.CreateTable(AccessMonthlyUsedTableName); }
+            //現在月の月別利用金額データテーブルのデータを取得する
             MonthlyUsedAccessor.GetMonetarydata();
+            //取得した現在月の月別利用金額データから総和を計算する
             decimal nowUsed = MonthlyUsedAccessor.MoneyUsedDataEntitiesFromTable.Sum(x => x.Price);
+            //(現在月の初期残高)-(上行で集計した総和)で現在残高を取得する
             return MonthlyFundAccessor.GetMonthFirstBalance(NowYear, NowMonth)-nowUsed;
         }
 
