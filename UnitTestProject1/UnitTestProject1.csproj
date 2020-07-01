@@ -57,6 +57,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DBConnector\DBConnector\DBConnector.csproj">
+      <Project>{f44458cf-e042-4ae2-bd1b-d915e1d7eb71}</Project>
+      <Name>DBConnector</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FundRegister\FundRegister.csproj">
       <Project>{5797e5d4-acb4-4344-ac65-7e3364243ec5}</Project>
       <Name>FundRegister</Name>

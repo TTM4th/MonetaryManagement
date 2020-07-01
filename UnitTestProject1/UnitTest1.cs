@@ -20,6 +20,16 @@ namespace UnitTestProject1
         {
             FundRegister.FrontEnd.RegisterFormAccessor.RunRegisterForm("TEST",true);
         }
+
+        [TestMethod]
+        public void Dmtest()
+        {
+            var ins = new PrivateObject(new DBConnector.Accessor.MonthlyFundAccessor());
+            bool value2 = (bool)ins.Invoke("IsExistYMBalance", 2020, 8);
+            Console.WriteLine(value2);
+            var pubIns = new DBConnector.Accessor.MonthlyFundAccessor();
+            Console.WriteLine(pubIns.GetMonthFirstBalance(2020, 7));
+        }
     }
 
     internal class CSVFormatter

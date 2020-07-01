@@ -30,10 +30,14 @@
         {
             this.TableNameComboBox = new System.Windows.Forms.ComboBox();
             this.SelectTableNameGroupBox = new System.Windows.Forms.GroupBox();
-            this.RunFundRegister = new System.Windows.Forms.Button();
-            this.InsertMode = new System.Windows.Forms.RadioButton();
             this.WholeEdit = new System.Windows.Forms.RadioButton();
+            this.InsertMode = new System.Windows.Forms.RadioButton();
+            this.RunFundRegister = new System.Windows.Forms.Button();
+            this.NowBalanceGroupBox = new System.Windows.Forms.GroupBox();
+            this.NowBalance = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SelectTableNameGroupBox.SuspendLayout();
+            this.NowBalanceGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // TableNameComboBox
@@ -41,6 +45,7 @@
             this.TableNameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TableNameComboBox.FormattingEnabled = true;
             this.TableNameComboBox.Items.AddRange(new object[] {
+            "2020-07",
             "2020-06",
             "TEST"});
             this.TableNameComboBox.Location = new System.Drawing.Point(6, 36);
@@ -61,15 +66,16 @@
             this.SelectTableNameGroupBox.TabStop = false;
             this.SelectTableNameGroupBox.Text = "テーブル選択";
             // 
-            // RunFundRegister
+            // WholeEdit
             // 
-            this.RunFundRegister.Location = new System.Drawing.Point(119, 113);
-            this.RunFundRegister.Name = "RunFundRegister";
-            this.RunFundRegister.Size = new System.Drawing.Size(75, 23);
-            this.RunFundRegister.TabIndex = 2;
-            this.RunFundRegister.Text = "登録画面へ";
-            this.RunFundRegister.UseVisualStyleBackColor = true;
-            this.RunFundRegister.Click += new System.EventHandler(this.RunFundRegister_Click);
+            this.WholeEdit.AutoSize = true;
+            this.WholeEdit.Location = new System.Drawing.Point(15, 91);
+            this.WholeEdit.Name = "WholeEdit";
+            this.WholeEdit.Size = new System.Drawing.Size(107, 16);
+            this.WholeEdit.TabIndex = 3;
+            this.WholeEdit.TabStop = true;
+            this.WholeEdit.Text = "挿入/削除/訂正";
+            this.WholeEdit.UseVisualStyleBackColor = true;
             // 
             // InsertMode
             // 
@@ -82,28 +88,61 @@
             this.InsertMode.Text = "挿入";
             this.InsertMode.UseVisualStyleBackColor = true;
             // 
-            // WholeEdit
+            // RunFundRegister
             // 
-            this.WholeEdit.AutoSize = true;
-            this.WholeEdit.Location = new System.Drawing.Point(15, 91);
-            this.WholeEdit.Name = "WholeEdit";
-            this.WholeEdit.Size = new System.Drawing.Size(107, 16);
-            this.WholeEdit.TabIndex = 3;
-            this.WholeEdit.TabStop = true;
-            this.WholeEdit.Text = "挿入/削除/訂正";
-            this.WholeEdit.UseVisualStyleBackColor = true;
+            this.RunFundRegister.Location = new System.Drawing.Point(119, 113);
+            this.RunFundRegister.Name = "RunFundRegister";
+            this.RunFundRegister.Size = new System.Drawing.Size(75, 23);
+            this.RunFundRegister.TabIndex = 2;
+            this.RunFundRegister.Text = "登録画面へ";
+            this.RunFundRegister.UseVisualStyleBackColor = true;
+            this.RunFundRegister.Click += new System.EventHandler(this.RunFundRegister_Click);
+            // 
+            // NowBalanceGroupBox
+            // 
+            this.NowBalanceGroupBox.Controls.Add(this.label1);
+            this.NowBalanceGroupBox.Controls.Add(this.NowBalance);
+            this.NowBalanceGroupBox.Location = new System.Drawing.Point(242, 13);
+            this.NowBalanceGroupBox.Name = "NowBalanceGroupBox";
+            this.NowBalanceGroupBox.Size = new System.Drawing.Size(271, 153);
+            this.NowBalanceGroupBox.TabIndex = 2;
+            this.NowBalanceGroupBox.TabStop = false;
+            this.NowBalanceGroupBox.Text = "現在手持残高";
+            // 
+            // NowBalance
+            // 
+            this.NowBalance.AutoSize = true;
+            this.NowBalance.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.NowBalance.Location = new System.Drawing.Point(86, 65);
+            this.NowBalance.Name = "NowBalance";
+            this.NowBalance.Size = new System.Drawing.Size(105, 19);
+            this.NowBalance.TabIndex = 0;
+            this.NowBalance.Text = "<現在残高>";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label1.Location = new System.Drawing.Point(52, 66);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(28, 19);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "￥";
             // 
             // MenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.NowBalanceGroupBox);
             this.Controls.Add(this.SelectTableNameGroupBox);
             this.Name = "MenuForm";
             this.Text = "MainMenu";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.SelectTableNameGroupBox.ResumeLayout(false);
             this.SelectTableNameGroupBox.PerformLayout();
+            this.NowBalanceGroupBox.ResumeLayout(false);
+            this.NowBalanceGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -115,6 +154,9 @@
         private System.Windows.Forms.Button RunFundRegister;
         private System.Windows.Forms.RadioButton WholeEdit;
         private System.Windows.Forms.RadioButton InsertMode;
+        private System.Windows.Forms.GroupBox NowBalanceGroupBox;
+        private System.Windows.Forms.Label label1;
+        internal System.Windows.Forms.Label NowBalance;
     }
 }
 
