@@ -22,11 +22,23 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
-        public void Dmtest()
+        public void DAtest()
         {
             var pubIns = new DBConnector.Accessor.MonthlyFundAccessor();
             Console.WriteLine(pubIns.GetMonthFirstBalance(2020, 7));
             Console.WriteLine(DBConnector.Accessor.MoneyUsedDataAccessor.GetMonthlyPrice(2020, 7));
+        }
+
+        [TestMethod]
+        public void DMtest()
+        {
+            var conIns = new DBConnector.Controller.MoneyUsedDataTableManager();
+            foreach (string name in conIns.MonthlyTableNames())
+            {
+                Console.WriteLine($"テーブル名:{name}");
+            }
+            string tblname = "2020-08";
+            Console.WriteLine($"Is Exist {tblname} ? {conIns.IsExistMonetaryTable(tblname)}");
         }
     }
 

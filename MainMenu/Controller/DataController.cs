@@ -2,9 +2,6 @@
 using DBConnector.Controller;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MainMenu.Controller
 {
@@ -33,6 +30,8 @@ namespace MainMenu.Controller
         /// </summary>
         private int NowMonth { get { return DateTime.Now.Month; } }
 
+        internal IReadOnlyList<string> MonthlyTableNames { get; private set; }
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -40,6 +39,10 @@ namespace MainMenu.Controller
         {
             MonthlyFundAccessor = new MonthlyFundAccessor();
             MonthlyUsedManager = new MoneyUsedDataTableManager();
+            //現在月の月別利用額テーブルが存在しない場合は作成する。
+            string newTablename = $"{NowYear}-{NowMonth.ToString("00")}";
+            if (MonthlyUsedManager.IsExistMonetaryTable(newTablename) == false) { MonthlyUsedManager.CreateTable(newTablename); }
+            MonthlyTableNames = MonthlyUsedManager.MonthlyTableNames();
         }
 
         /// <summary>

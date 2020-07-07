@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MainMenu.Controller
+﻿namespace MainMenu.Controller
 {
     class ActionLogics
     {
@@ -19,6 +13,7 @@ namespace MainMenu.Controller
         {
             ParentForm = menuForm;
             DataController = new DataController();
+            ParentForm.TableNameComboBox.DataSource = DataController.MonthlyTableNames;
         }
 
         /// <summary>

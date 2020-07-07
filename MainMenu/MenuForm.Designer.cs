@@ -34,8 +34,8 @@
             this.InsertMode = new System.Windows.Forms.RadioButton();
             this.RunFundRegister = new System.Windows.Forms.Button();
             this.NowBalanceGroupBox = new System.Windows.Forms.GroupBox();
-            this.NowBalance = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.NowBalance = new System.Windows.Forms.Label();
             this.SelectTableNameGroupBox.SuspendLayout();
             this.NowBalanceGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -44,10 +44,6 @@
             // 
             this.TableNameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TableNameComboBox.FormattingEnabled = true;
-            this.TableNameComboBox.Items.AddRange(new object[] {
-            "2020-07",
-            "2020-06",
-            "TEST"});
             this.TableNameComboBox.Location = new System.Drawing.Point(6, 36);
             this.TableNameComboBox.Name = "TableNameComboBox";
             this.TableNameComboBox.Size = new System.Drawing.Size(188, 20);
@@ -109,16 +105,6 @@
             this.NowBalanceGroupBox.TabStop = false;
             this.NowBalanceGroupBox.Text = "現在手持残高";
             // 
-            // NowBalance
-            // 
-            this.NowBalance.AutoSize = true;
-            this.NowBalance.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.NowBalance.Location = new System.Drawing.Point(86, 65);
-            this.NowBalance.Name = "NowBalance";
-            this.NowBalance.Size = new System.Drawing.Size(105, 19);
-            this.NowBalance.TabIndex = 0;
-            this.NowBalance.Text = "<現在残高>";
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -128,6 +114,16 @@
             this.label1.Size = new System.Drawing.Size(28, 19);
             this.label1.TabIndex = 1;
             this.label1.Text = "￥";
+            // 
+            // NowBalance
+            // 
+            this.NowBalance.AutoSize = true;
+            this.NowBalance.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.NowBalance.Location = new System.Drawing.Point(86, 65);
+            this.NowBalance.Name = "NowBalance";
+            this.NowBalance.Size = new System.Drawing.Size(105, 19);
+            this.NowBalance.TabIndex = 0;
+            this.NowBalance.Text = "<現在残高>";
             // 
             // MenuForm
             // 
@@ -148,8 +144,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox TableNameComboBox;
         private System.Windows.Forms.GroupBox SelectTableNameGroupBox;
         private System.Windows.Forms.Button RunFundRegister;
         private System.Windows.Forms.RadioButton WholeEdit;
@@ -157,6 +151,7 @@
         private System.Windows.Forms.GroupBox NowBalanceGroupBox;
         private System.Windows.Forms.Label label1;
         internal System.Windows.Forms.Label NowBalance;
+        internal System.Windows.Forms.ComboBox TableNameComboBox;
     }
 }
 
