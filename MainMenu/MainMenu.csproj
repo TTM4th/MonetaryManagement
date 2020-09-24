@@ -102,6 +102,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CommonUtilities\CommonUtilities\CommonUtilities.csproj">
+      <Project>{2e241134-950f-463f-9deb-5ba1c97d3681}</Project>
+      <Name>CommonUtilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\DBConnector\DBConnector\DBConnector.csproj">
       <Project>{f44458cf-e042-4ae2-bd1b-d915e1d7eb71}</Project>
       <Name>DBConnector</Name>
