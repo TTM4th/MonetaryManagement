@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CommonUtilities.CommonParts;
+
 namespace MainMenu
 {
     static class Program
@@ -14,7 +14,9 @@ namespace MainMenu
         [STAThread]
         static void Main()
         {
-            FormSingletonUtility<MenuForm>.ImplementedGlobalMutexRun();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MenuForm());
         }
     }
 }

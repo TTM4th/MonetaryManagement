@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainMenu", "MainMenu\MainMe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonetaryManagementDefinitions", "MonetaryManagementDefinitions\MonetaryManagementDefinitions.csproj", "{4AE981D8-28C3-4ECB-B696-8254ADB5F763}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonUtilities", "..\CommonUtilities\CommonUtilities\CommonUtilities.csproj", "{2E241134-950F-463F-9DEB-5BA1C97D3681}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,14 +61,6 @@ Global
 		{4AE981D8-28C3-4ECB-B696-8254ADB5F763}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4AE981D8-28C3-4ECB-B696-8254ADB5F763}.Release|x64.ActiveCfg = Release|Any CPU
 		{4AE981D8-28C3-4ECB-B696-8254ADB5F763}.Release|x64.Build.0 = Release|Any CPU
-		{2E241134-950F-463F-9DEB-5BA1C97D3681}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E241134-950F-463F-9DEB-5BA1C97D3681}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E241134-950F-463F-9DEB-5BA1C97D3681}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{2E241134-950F-463F-9DEB-5BA1C97D3681}.Debug|x64.Build.0 = Debug|Any CPU
-		{2E241134-950F-463F-9DEB-5BA1C97D3681}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E241134-950F-463F-9DEB-5BA1C97D3681}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E241134-950F-463F-9DEB-5BA1C97D3681}.Release|x64.ActiveCfg = Release|Any CPU
-		{2E241134-950F-463F-9DEB-5BA1C97D3681}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
