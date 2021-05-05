@@ -84,12 +84,23 @@ namespace FundRegister.Controller
         internal void RegistData()
         {
             Cursor.Current = Cursors.WaitCursor;
-            var register = new Register(this.DataController.InputDataList);
-            register.RegistData(this.IsMonthlyWholeEditMode);
-            ParentForm.InputGridView.Rows.Clear();
-            if (IsMonthlyWholeEditMode) { DataController.ReflectGridFromDB(); }
-            else { ParentForm.InputGridView.Rows.Add(); }
-            Cursor.Current = Cursors.Default;
+            try
+            {
+                var register = new Register(this.DataController.InputDataList);
+                register.RegistData(this.IsMonthlyWholeEditMode);
+                ParentForm.InputGridView.Rows.Clear();
+                if (IsMonthlyWholeEditMode) { DataController.ReflectGridFromDB(); }
+                else { ParentForm.InputGridView.Rows.Add(); }
+            }
+            catch(System.Exception)
+            {//OnerecordDataの列挙オブジェクトに入っているデータにIsEmptyが偽のデータが一つもない場合はここの例外を拾う
+                MessageBox.Show("有効な値を入力してください","値が入力されていません");
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+
         }
         #endregion
 
