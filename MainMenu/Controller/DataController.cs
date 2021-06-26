@@ -2,6 +2,7 @@
 using DBConnector.Controller;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MainMenu.Controller
 {
@@ -42,7 +43,7 @@ namespace MainMenu.Controller
             //現在月の月別利用額テーブルが存在しない場合は作成する。
             string newTablename = $"{NowYear}-{NowMonth.ToString("00")}";
             if (MonthlyUsedManager.IsExistMonetaryTable(newTablename) == false) { MonthlyUsedManager.CreateTable(newTablename); }
-            MonthlyTableNames = MonthlyUsedManager.MonthlyTableNames();
+            MonthlyTableNames = MonthlyUsedManager.MonthlyTableNames().Take(6).ToList();
         }
 
         /// <summary>
