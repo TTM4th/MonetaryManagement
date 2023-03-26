@@ -46,6 +46,7 @@ namespace MainMenu.Controller
             MonthlyFundAccessor = new MonthlyFundAccessor();
             MonthlyUsedManager = new MoneyUsedDataTableManager();
             //現在月の月別利用額テーブルが存在しない場合は作成する。
+            if (!MonthlyFundAccessor.IsExistFirstBalance(NowYear, NowMonth)) { MonthlyFundAccessor.InsertFromPreviousMonth(NowYear, NowMonth); }
             string newTablename = $"{NowYear}-{NowMonth.ToString("00")}";
             if (MonthlyUsedManager.IsExistMonetaryTable(newTablename) == false) { MonthlyUsedManager.CreateTable(newTablename); }
             MonthlyTableNames = MonthlyUsedManager.MonthlyTableNames().Take(6).ToList();
