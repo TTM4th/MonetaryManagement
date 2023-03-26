@@ -116,9 +116,12 @@ namespace FundRegister.Controller
         internal void ReflectGridFromDB()
         {
             var entities = new Getter().GetData();
+            //2023-03-26 テーブルはあるけど1行もない場合の緊急回避措置を重い腰上げて追加！！
+            if (!entities.Any()) {
+                ParentForm.InputGridView.Rows.Add(); return;
+            }
             foreach (OneRecordData item in entities)
             {
-
                 ParentForm.InputGridView.Rows.Add(item.PaidDate,item.Price,item.Classification);
             }
         }

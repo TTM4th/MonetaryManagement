@@ -25,5 +25,10 @@
             ParentForm.NowBalance.Update();
         }
 
+        internal void ReflectIsInitialNowMonth()
+        {
+            if (DataController.IsNowMonthEmpty()) { ParentForm.WholeEdit.Checked = false; ParentForm.WholeEdit.Enabled = false; }
+        }
+
     }
 }

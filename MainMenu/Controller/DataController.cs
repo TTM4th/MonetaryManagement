@@ -31,6 +31,17 @@ namespace MainMenu.Controller
         /// </summary>
         private int NowMonth { get { return DateTime.Now.Month; } }
 
+        /// <summary>
+        /// 現在月の利用額総和
+        /// </summary>
+        private decimal NowMonthSum { get { return MonthlyUsedManager.GetMonthlyPrice(NowYear.ToString(), NowMonth.ToString("00")); } }
+        
+        /// <summary>
+        /// 現在月のテーブルが空かどうか
+        /// ※テスト機能のためロジックは適当（今月総和が0なら空）
+        /// </summary>
+        internal bool IsNowMonthEmpty() { return MonthlyUsedManager.IsInitialTable(NowYear.ToString(), NowMonth.ToString("00")); }
+
         internal IReadOnlyList<string> MonthlyTableNames { get; private set; }
 
         /// <summary>
@@ -52,7 +63,7 @@ namespace MainMenu.Controller
         /// <returns></returns>
         internal decimal GetCurrentBalance()
         {
-            return MonthlyFundAccessor.GetMonthFirstBalance(NowYear, NowMonth)-MoneyUsedDataAccessor.GetMonthlyPrice(NowYear,NowMonth);
+            return MonthlyFundAccessor.GetMonthFirstBalance(NowYear, NowMonth) - NowMonthSum;
         }
 
     }

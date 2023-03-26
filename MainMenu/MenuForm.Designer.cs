@@ -132,6 +132,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.NowBalanceGroupBox);
             this.Controls.Add(this.SelectTableNameGroupBox);
+            this.MaximizeBox = false;
             this.Name = "MenuForm";
             this.Text = "MainMenu";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -146,12 +147,12 @@
         #endregion
         private System.Windows.Forms.GroupBox SelectTableNameGroupBox;
         private System.Windows.Forms.Button RunFundRegister;
-        private System.Windows.Forms.RadioButton WholeEdit;
         private System.Windows.Forms.RadioButton InsertMode;
         private System.Windows.Forms.GroupBox NowBalanceGroupBox;
         private System.Windows.Forms.Label label1;
         internal System.Windows.Forms.Label NowBalance;
         internal System.Windows.Forms.ComboBox TableNameComboBox;
+        internal System.Windows.Forms.RadioButton WholeEdit;
     }
 }
 

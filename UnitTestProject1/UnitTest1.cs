@@ -26,7 +26,7 @@ namespace UnitTestProject1
         {
             var pubIns = new DBConnector.Accessor.MonthlyFundAccessor();
             Console.WriteLine(pubIns.GetMonthFirstBalance(2020, 7));
-            Console.WriteLine(DBConnector.Accessor.MoneyUsedDataAccessor.GetMonthlyPrice(2020, 7));
+            //Console.WriteLine(DBConnector.Accessor.MoneyUsedDataAccessor.GetMonthlyPrice(2020, 7));
         }
 
         [TestMethod]
