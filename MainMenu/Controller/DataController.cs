@@ -36,12 +36,6 @@ namespace MainMenu.Controller
         /// </summary>
         private decimal NowMonthSum { get { return MonthlyUsedManager.GetMonthlyPrice(NowYear.ToString(), NowMonth.ToString("00")); } }
         
-        /// <summary>
-        /// 現在月のテーブルが空かどうか
-        /// ※テスト機能のためロジックは適当（今月総和が0なら空）
-        /// </summary>
-        internal bool IsNowMonthEmpty() { return MonthlyUsedManager.IsInitialTable(NowYear.ToString(), NowMonth.ToString("00")); }
-
         internal IReadOnlyList<string> MonthlyTableNames { get; private set; }
 
         /// <summary>

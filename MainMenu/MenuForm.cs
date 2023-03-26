@@ -18,7 +18,6 @@ namespace MainMenu
         {
             InsertMode.Checked = true;
             TableNameComboBox.SelectedIndex = 0;
-            //ActionLogics.ReflectIsInitialNowMonth();
             ActionLogics.ReflectNowBalance();
         }
 
@@ -26,7 +25,6 @@ namespace MainMenu
         {
             FundRegister.FrontEnd.RegisterFormAccessor.RunRegisterForm((string)TableNameComboBox.SelectedItem, WholeEdit.Checked);
             this.Show();
-            //ActionLogics.ReflectIsInitialNowMonth();
             ActionLogics.ReflectNowBalance();
         }
 
