@@ -1,0 +1,25 @@
+﻿<Window x:Name="MainWindow1" x:Class="WpfMainMenu.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfMainMenu"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize" Loaded="MainWindow1_Loaded">
+    <Grid>
+        <GroupBox Header="テーブル選択" Height="158" VerticalAlignment="Top" Margin="10,0,549,0">
+            <StackPanel Height="136" VerticalAlignment="Top">
+                <ComboBox x:Name="TableNameComboBox" HorizontalAlignment="Left" Height="22" Margin="18,16,0,0" Width="154"/>
+                <RadioButton x:Name="InsertMode" Content="挿入" HorizontalAlignment="Left" Height="20" Margin="18,16,0,0" Width="128" IsChecked="True"/>
+                <RadioButton x:Name="WholeEdit" Content="挿入/削除/訂正" HorizontalAlignment="Left" Height="20" Margin="18,0,0,0" Width="128" IsChecked="False"/>
+                <Button x:Name="RunFundRegister" Content="登録画面へ" HorizontalAlignment="Left" Height="26" Margin="129,0,0,0" Width="73" Click="Button_Click"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox x:Name="NowBalanceGroupBox" Header="現在手持残高" HorizontalAlignment="Left" Height="158" Margin="250,0,0,0" VerticalAlignment="Top" Width="245">
+            <StackPanel Height="126" Orientation="Horizontal">
+                <Label x:Name="Label1" Content="￥" FontSize="18"  Height="39" Width="28" Margin="48,44,0,43"/>
+                <Label x:Name="NowBalance" Content="＜現在残高＞" FontSize="18" Height="39" Width="125" HorizontalAlignment="Left" Margin="0,44,0,43"/>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>
