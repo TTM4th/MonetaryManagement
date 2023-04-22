@@ -18,7 +18,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestRun()
         {
-            FundRegister.FrontEnd.RegisterFormAccessor.RunRegisterForm("TEST",true);
+            WpfFundRegister.FrontEnd.RegisterFormAccessor.RunRegisterForm("TEST",true);
         }
 
         [TestMethod]
