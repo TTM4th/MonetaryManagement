@@ -35,7 +35,8 @@
             this.RunFundRegister = new System.Windows.Forms.Button();
             this.NowBalanceGroupBox = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.NowBalance = new System.Windows.Forms.Label();
+            this.NowBalanceLabel = new System.Windows.Forms.Label();
+            this.button_Run_collator = new System.Windows.Forms.Button();
             this.SelectTableNameGroupBox.SuspendLayout();
             this.NowBalanceGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -96,8 +97,9 @@
             // 
             // NowBalanceGroupBox
             // 
+            this.NowBalanceGroupBox.Controls.Add(this.button_Run_collator);
             this.NowBalanceGroupBox.Controls.Add(this.label1);
-            this.NowBalanceGroupBox.Controls.Add(this.NowBalance);
+            this.NowBalanceGroupBox.Controls.Add(this.NowBalanceLabel);
             this.NowBalanceGroupBox.Location = new System.Drawing.Point(242, 13);
             this.NowBalanceGroupBox.Name = "NowBalanceGroupBox";
             this.NowBalanceGroupBox.Size = new System.Drawing.Size(271, 153);
@@ -117,13 +119,23 @@
             // 
             // NowBalance
             // 
-            this.NowBalance.AutoSize = true;
-            this.NowBalance.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.NowBalance.Location = new System.Drawing.Point(86, 65);
-            this.NowBalance.Name = "NowBalance";
-            this.NowBalance.Size = new System.Drawing.Size(105, 19);
-            this.NowBalance.TabIndex = 0;
-            this.NowBalance.Text = "<現在残高>";
+            this.NowBalanceLabel.AutoSize = true;
+            this.NowBalanceLabel.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.NowBalanceLabel.Location = new System.Drawing.Point(86, 65);
+            this.NowBalanceLabel.Name = "NowBalanceLabel";
+            this.NowBalanceLabel.Size = new System.Drawing.Size(105, 19);
+            this.NowBalanceLabel.TabIndex = 0;
+            this.NowBalanceLabel.Text = "<現在残高>";
+            // 
+            // button_Run_collator
+            // 
+            this.button_Run_collator.Location = new System.Drawing.Point(142, 113);
+            this.button_Run_collator.Name = "button_Run_collator";
+            this.button_Run_collator.Size = new System.Drawing.Size(113, 22);
+            this.button_Run_collator.TabIndex = 2;
+            this.button_Run_collator.Text = "手持残高との照合";
+            this.button_Run_collator.UseVisualStyleBackColor = true;
+            this.button_Run_collator.Click += new System.EventHandler(this.Button_Run_collator_Click);
             // 
             // MenuForm
             // 
@@ -150,9 +162,10 @@
         private System.Windows.Forms.RadioButton InsertMode;
         private System.Windows.Forms.GroupBox NowBalanceGroupBox;
         private System.Windows.Forms.Label label1;
-        internal System.Windows.Forms.Label NowBalance;
+        internal System.Windows.Forms.Label NowBalanceLabel;
         internal System.Windows.Forms.ComboBox TableNameComboBox;
         internal System.Windows.Forms.RadioButton WholeEdit;
+        private System.Windows.Forms.Button button_Run_collator;
     }
 }
 

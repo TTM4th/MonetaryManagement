@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5797E5D4-ACB4-4344-AC65-7E3364243EC5}</ProjectGuid>
+    <ProjectGuid>{B5BE45DD-F8EA-4B83-A4B5-90C63EB1C8A6}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>FundRegister</RootNamespace>
-    <AssemblyName>FundRegister</AssemblyName>
+    <RootNamespace>FundCollator</RootNamespace>
+    <AssemblyName>FundCollator</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -35,42 +35,6 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForTablet|AnyCPU'">
-    <OutputPath>bin\ReleaseForTablet\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForTablet|x86'">
-    <OutputPath>bin\x86\ReleaseForTablet\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -85,21 +49,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\Process\Getter.cs" />
-    <Compile Include="Business\Process\Register.cs" />
-    <Compile Include="Controller\ActionLogics.cs" />
-    <Compile Include="Controller\DataController.cs" />
-    <Compile Include="Definition\Definition.cs" />
-    <Compile Include="FrontEnd\RegisterFormAccessor.cs" />
-    <Compile Include="FrontEnd\State.cs" />
-    <Compile Include="RegisterForm.cs">
+    <Compile Include="CashInput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CashInput.Designer.cs">
+      <DependentUpon>CashInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EmoneyInput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EmoneyInput.Designer.cs">
+      <DependentUpon>EmoneyInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrontEnd\FundCollatorFormAccessor.cs" />
+    <Compile Include="FundCollatorFrom.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegisterForm.Designer.cs">
-      <DependentUpon>RegisterForm.cs</DependentUpon>
+    <Compile Include="FundCollatorFrom.Designer.cs">
+      <DependentUpon>FundCollatorFrom.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CashInput.resx">
+      <DependentUpon>CashInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmoneyInput.resx">
+      <DependentUpon>EmoneyInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FundCollatorFrom.resx">
+      <DependentUpon>FundCollatorFrom.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -110,9 +89,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="RegisterForm.resx">
-      <DependentUpon>RegisterForm.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -125,19 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Business\Entity\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\DBConnector\DBConnector\DBConnector.csproj">
-      <Project>{f44458cf-e042-4ae2-bd1b-d915e1d7eb71}</Project>
-      <Name>DBConnector</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MonetaryManagementDefinitions\MonetaryManagementDefinitions.csproj">
-      <Project>{4ae981d8-28c3-4ecb-b696-8254adb5f763}</Project>
-      <Name>MonetaryManagementDefinitions</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
