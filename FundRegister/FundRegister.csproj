@@ -126,9 +126,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Business\Entity\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\DBConnector\DBConnector\DBConnector.csproj">
       <Project>{f44458cf-e042-4ae2-bd1b-d915e1d7eb71}</Project>
