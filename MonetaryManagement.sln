@@ -1,19 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2036
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{4E1AB237-42D2-4ED0-9D86-657B999A4AC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBConnector", "..\DBConnector\DBConnector\DBConnector.csproj", "{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundRegister", "FundRegister\FundRegister.csproj", "{5797E5D4-ACB4-4344-AC65-7E3364243EC5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71} = {F44458CF-E042-4AE2-BD1B-D915E1D7EB71}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainMenu", "MainMenu\MainMenu.csproj", "{EBC68E17-7FE4-4132-9DFC-91FB27207886}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonetaryManagementDefinitions", "MonetaryManagementDefinitions\MonetaryManagementDefinitions.csproj", "{4AE981D8-28C3-4ECB-B696-8254ADB5F763}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundCollator", "FundCollateor\FundCollator.csproj", "{B5BE45DD-F8EA-4B83-A4B5-90C63EB1C8A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBConnector", "..\DBConnector\DBConnector\DBConnector.csproj", "{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,18 +37,6 @@ Global
 		{4E1AB237-42D2-4ED0-9D86-657B999A4AC5}.Release|x64.ActiveCfg = Release|Any CPU
 		{4E1AB237-42D2-4ED0-9D86-657B999A4AC5}.Release|x64.Build.0 = Release|Any CPU
 		{4E1AB237-42D2-4ED0-9D86-657B999A4AC5}.Release|x86.ActiveCfg = Release|x86
-		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Debug|x64.Build.0 = Debug|Any CPU
-		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Debug|x86.Build.0 = Debug|Any CPU
-		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Release|x64.ActiveCfg = Release|Any CPU
-		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Release|x64.Build.0 = Release|Any CPU
-		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Release|x86.ActiveCfg = Release|Any CPU
-		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Release|x86.Build.0 = Release|Any CPU
 		{5797E5D4-ACB4-4344-AC65-7E3364243EC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5797E5D4-ACB4-4344-AC65-7E3364243EC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5797E5D4-ACB4-4344-AC65-7E3364243EC5}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -94,6 +85,18 @@ Global
 		{B5BE45DD-F8EA-4B83-A4B5-90C63EB1C8A6}.Release|x64.Build.0 = Release|Any CPU
 		{B5BE45DD-F8EA-4B83-A4B5-90C63EB1C8A6}.Release|x86.ActiveCfg = Release|Any CPU
 		{B5BE45DD-F8EA-4B83-A4B5-90C63EB1C8A6}.Release|x86.Build.0 = Release|Any CPU
+		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Debug|x64.ActiveCfg = Debug|x64
+		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Debug|x64.Build.0 = Debug|x64
+		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Debug|x86.Build.0 = Debug|Any CPU
+		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Release|x64.ActiveCfg = Release|x64
+		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Release|x64.Build.0 = Release|x64
+		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Release|x86.ActiveCfg = Release|Any CPU
+		{F44458CF-E042-4AE2-BD1B-D915E1D7EB71}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

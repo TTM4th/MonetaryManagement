@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FundCollator
@@ -30,6 +23,7 @@ namespace FundCollator
         {
             decimal inputtedCash = this.emoneyInput1.GetInputValue() + this.cashInput.CalcInputValue();
             this.label_cash.Text = inputtedCash.ToString();
+            this.label_diff.Text = string.Empty;
             if (inputtedCash != this.NowBalance)
             {
                 decimal diff = inputtedCash - NowBalance;

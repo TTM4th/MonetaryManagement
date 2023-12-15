@@ -1,17 +1,13 @@
 ﻿using MonetaryManagementDefinitions.Flags;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FundRegister.Definition
-{       
-        
-        /// <summary>
-        /// RegisterフォームのDataGridViewのセルのインデックス情報
-        /// </summary>
-        internal enum InputGridViewCellIndexes
+{
+
+    /// <summary>
+    /// RegisterフォームのDataGridViewのセルのインデックス情報
+    /// </summary>
+    internal enum InputGridViewCellIndexes
         {
             Date,
             Price,
