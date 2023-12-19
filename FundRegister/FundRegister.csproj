@@ -86,9 +86,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\Process\Getter.cs" />
-    <Compile Include="Business\Process\Register.cs" />
-    <Compile Include="Controller\ActionLogics.cs" />
     <Compile Include="Controller\DataController.cs" />
     <Compile Include="Definition\Definition.cs" />
     <Compile Include="FrontEnd\RegisterFormAccessor.cs" />

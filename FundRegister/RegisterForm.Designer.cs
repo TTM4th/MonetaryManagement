@@ -32,6 +32,7 @@
             this.KubunGroupBox = new System.Windows.Forms.GroupBox();
             this.SelectDateCalender = new System.Windows.Forms.MonthCalendar();
             this.InputGridView = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Classification = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,16 +79,25 @@
             this.InputGridView.AllowUserToDeleteRows = false;
             this.InputGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.InputGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
             this.Date,
             this.Price,
             this.Classification});
             this.InputGridView.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.InputGridView.Location = new System.Drawing.Point(13, 19);
+            this.InputGridView.MultiSelect = false;
             this.InputGridView.Name = "InputGridView";
             this.InputGridView.RowTemplate.Height = 21;
             this.InputGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.InputGridView.Size = new System.Drawing.Size(273, 292);
             this.InputGridView.TabIndex = 3;
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ID.Visible = false;
             // 
             // Date
             // 
@@ -181,14 +191,15 @@
         private System.Windows.Forms.GroupBox KubunGroupBox;
         private System.Windows.Forms.Button EnterButton;
         private System.Windows.Forms.Button DeleteButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Classification;
         private System.Windows.Forms.Button RegisterButton;
         private System.Windows.Forms.GroupBox InputGroupBox;
         internal System.Windows.Forms.DataGridView InputGridView;
         internal System.Windows.Forms.MonthCalendar SelectDateCalender;
         internal System.Windows.Forms.ListBox KubunListBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Classification;
     }
 }
 

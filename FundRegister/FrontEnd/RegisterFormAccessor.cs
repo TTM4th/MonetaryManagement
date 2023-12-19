@@ -2,11 +2,10 @@
 {
     public class RegisterFormAccessor
     {
-        public static void RunRegisterForm(string TargetTableName,bool isWholeEdit)
+        public static void RunRegisterForm(string TargetTableName)
         {
             State.SetTableName(TargetTableName);
-            State.SetIsMonthlyWholeEditMode(isWholeEdit);
-            var ins=new RegisterForm(State.IsMonthlyWholeEditMode);
+            var ins=new RegisterForm();
             ins.ShowDialog();
         }
     }

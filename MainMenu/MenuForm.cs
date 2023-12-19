@@ -28,14 +28,13 @@ namespace MainMenu
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            InsertMode.Checked = true;
             TableNameComboBox.SelectedIndex = 0;
             this.ReflectNowBalance();
         }
 
         private void RunFundRegister_Click(object sender, EventArgs e)
         {
-            FundRegister.FrontEnd.RegisterFormAccessor.RunRegisterForm((string)TableNameComboBox.SelectedItem, WholeEdit.Checked);
+            FundRegister.FrontEnd.RegisterFormAccessor.RunRegisterForm((string)TableNameComboBox.SelectedItem);
             this.Show();
             this.ReflectNowBalance();
         }

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using FundRegister.Definition;
 using System.Windows.Forms;
-using FundRegister.Business.Process;
+using System.Data;
+using DBConnector.Accessor;
 namespace FundRegister.Controller
 {
     class DataController
     {
+        private readonly List<Func<DataGridViewRow, bool>> checkinValidFuncs;
+
         //送信元のフォームオブジェクト
         private RegisterForm ParentForm { get; }
 
@@ -18,6 +21,13 @@ namespace FundRegister.Controller
         internal DataController(RegisterForm parntFormObj) {
             ParentForm = parntFormObj;
             Classifications = new Classifications().ClassificationItems;
+            checkinValidFuncs = new List<Func<DataGridViewRow, bool>>
+            {
+                row => row.Cells[(int)InputGridViewCellIndexes.ID].Value is null,
+                row => row.Cells[(int)InputGridViewCellIndexes.Price].Value is null ? true : decimal.TryParse(row.Cells[(int)InputGridViewCellIndexes.Price].Value.ToString(), out decimal price) == false,
+                row => row.Cells[(int)InputGridViewCellIndexes.Date].Value is null,
+                row => row.Cells[(int)InputGridViewCellIndexes.Classification].Value is null
+            };
         }
 
         /// <summary>
@@ -26,7 +36,16 @@ namespace FundRegister.Controller
         /// <returns>セット先の行インデックス情報</returns>
         private int TargetIndex { get { return ParentForm.InputGridView.CurrentRow.Index; } }
 
-        internal IEnumerable<Classifications.Classification> Classifications { get; }
+        private IEnumerable<Classifications.Classification> Classifications { get; }
+
+        /// <summary>
+        /// 「区分」リストボックスのマッピング処理
+        /// </summary>
+        internal void InitializeKubunListBox()
+        {
+            ParentForm.KubunListBox.Items.
+                AddRange(this.Classifications.Select(item => item.FormItem).ToArray());
+        }
 
         #region DataGridViewの選択行各列項目プロパティ
         /// <summary>
@@ -34,40 +53,27 @@ namespace FundRegister.Controller
         /// </summary>
         internal string PaidDate_gv
         {
-            get
+            /*get
             {
                 var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewCellIndexes.Date].Value;
                 if (tmp == null) { return string.Empty; }
                 else { return tmp.ToString(); }
-            }
+            }*/
             set { ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewCellIndexes.Date].Value = value; }
         }
 
-        /// <summary>
-        /// GridViewの金額欄に入力した文字列を取得する
-        /// </summary>
-        internal string Price_gv
-        {
-            get
-            {
-                var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewCellIndexes.Price].Value;
-                if (tmp == null) { return string.Empty; }
-                else { return tmp.ToString(); }
-            }
-            set { ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewCellIndexes.Price].Value = value; }
-        }
 
         /// <summary>
         /// GridViewの区分欄の区分を取得・設定する
         /// </summary>
         internal string Classification_gv
         {
-            get
+            /*get
             {
                 var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewCellIndexes.Classification].Value;
                 if (tmp == null) { return string.Empty; }
                 else { return tmp.ToString(); }
-            }
+            }*/
             set { ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewCellIndexes.Classification].Value = value; }
         }
 
@@ -92,38 +98,98 @@ namespace FundRegister.Controller
             }
         }
 
-
         #endregion
 
         /// <summary>
-        /// InputGridviewに入力した項目をiEnumerableで返す
+        /// InputGridviewに入力した項目をIReadOnlyList形式で取得する
         /// </summary>
-        internal IReadOnlyList<OneRecordData> InputDataList
+        private IReadOnlyList<DataGridViewRow> InputDataList => ParentForm.InputGridView.Rows.OfType<DataGridViewRow>().ToList();
+
+        /// <summary>
+        /// InputGridViewの各セルの有効値チェック関数リスト
+        /// </summary>
+        private IReadOnlyList<Func<DataGridViewRow, bool>> CheckinValidFuncs => checkinValidFuncs;
+
+        /// <summary>
+        /// データ登録ができる行が一つもないかどうか判別する
+        /// </summary>
+        private bool IsZeroRows => this.InputDataList.All(row => this.CheckinValidFuncs.All(fnc => fnc(row)));
+
+        /// <summary>
+        /// データ登録にあたって無効値を含む行が存在するか判別する
+        /// </summary>
+        internal bool HasInValidRows => this.InputDataList.Any(row => this.CheckinValidFuncs.Any(fnc => fnc(row)));
+
+        /// <summary>
+        /// 行追加時に行う処理
+        /// </summary>
+        internal void AppendNewRowAction()
         {
-            get
-            {
-                return ParentForm.InputGridView.Rows.OfType<DataGridViewRow>()
-                       .Select(row => new OneRecordData(row.Cells[(int)InputGridViewCellIndexes.Date].Value.ToString(),
-                                                                 Convert.ToDecimal(row.Cells[(int)InputGridViewCellIndexes.Price].Value),
-                                                                 row.Cells[(int)InputGridViewCellIndexes.Classification].Value.ToString())).Where(data => data.IsEmpty() == false).ToList<OneRecordData>();
-            }
+            ParentForm.InputGridView.Rows.Add();
+            int newRowIndex = ParentForm.InputGridView.Rows.GetLastRow(DataGridViewElementStates.None);
+            int newid = (int)ParentForm.InputGridView.Rows.OfType<DataGridViewRow>().Max(x => x.Cells[(int)InputGridViewCellIndexes.ID].Value) + 1;
+            ParentForm.InputGridView.Rows[newRowIndex].Cells[(int)InputGridViewCellIndexes.ID].Value = newid;
+            ParentForm.InputGridView.CurrentCell = ParentForm.InputGridView.Rows[newRowIndex].Cells[(int)InputGridViewCellIndexes.Date];
         }
 
+        /// <summary>
+        /// 無効値を含む最初の行に移動する処理
+        /// </summary>
+        internal void MoveToFirstInValidRow()
+        {
+            MessageBox.Show("入力欄に有効な値を入力してください");
+            ParentForm.InputGridView.CurrentCell = null;
+            ParentForm.InputGridView.ClearSelection();
+            var targetindex = this.InputDataList.First(row => this.CheckinValidFuncs.Any(fnc => fnc(row))).Index;
+            ParentForm.InputGridView.Rows[targetindex].Selected = true;
+            ParentForm.InputGridView.CurrentCell = ParentForm.InputGridView[(int)InputGridViewCellIndexes.Date, targetindex];
+            ParentForm.InputGridView.FirstDisplayedScrollingRowIndex = targetindex;
+        }
+
+        /// <summary>
+        /// GridのデータをDBに反映させる
+        /// </summary>
+        internal void ReflectToDB()
+        {
+            MoneyUsedDataAccessor accessor = new MoneyUsedDataAccessor(FrontEnd.State.TargetTableName);
+            if (this.IsZeroRows) { accessor.DeleteMonetaryData(); }
+            else
+            {
+                if (this.HasInValidRows) {
+                    this.MoveToFirstInValidRow();
+                    return; 
+                }
+                var uploaddata = this.InputDataList.Select(x => new DBConnector.Entity.MoneyUsedData()
+                {
+                    ID = (int)x.Cells[(int)InputGridViewCellIndexes.ID].Value,
+                    Date = x.Cells[(int)InputGridViewCellIndexes.Date].Value.ToString(),
+                    Price = Convert.ToDecimal(x.Cells[(int)InputGridViewCellIndexes.Price].Value),
+                    Classification = x.Cells[(int)InputGridViewCellIndexes.Classification].Value.ToString()
+                })
+                .Where(data => !(data.Date is null || data.Classification is null)).ToList();
+                accessor.UploadMonetaryData(uploaddata);
+                ParentForm.InputGridView.Rows.Clear();
+                this.ReflectGridFromDB();
+            }
+        }
 
         /// <summary>
         /// DBから取得したデータをGridに挿入する
         /// </summary>
         internal void ReflectGridFromDB()
         {
-            var entities = new Getter().GetData();
-            //2023-03-26 テーブルはあるけど1行もない場合の緊急回避措置を重い腰上げて追加！！
-            if (!entities.Any()) {
-                ParentForm.InputGridView.Rows.Add(); return;
+            var dataAccessor = new MoneyUsedDataAccessor(FrontEnd.State.TargetTableName);
+            dataAccessor.GetMonetarydata();
+            if (!dataAccessor.MoneyUsedDataEntitiesFromTable.Any()) {
+                ParentForm.InputGridView.Rows.Add();
+                ParentForm.InputGridView.Rows[0].Cells[(int)InputGridViewCellIndexes.ID].Value = 1;
+                return;
             }
-            foreach (OneRecordData item in entities)
+            foreach(DBConnector.Entity.MoneyUsedData entity in dataAccessor.MoneyUsedDataEntitiesFromTable)
             {
-                ParentForm.InputGridView.Rows.Add(item.PaidDate,item.Price,item.Classification);
+                ParentForm.InputGridView.Rows.Add(entity.ID,entity.Date,entity.Price,entity.Classification);
             }
+            
         }
     }
 }

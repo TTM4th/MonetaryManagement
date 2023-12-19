@@ -8,27 +8,11 @@ namespace FundRegister.Definition
     /// RegisterフォームのDataGridViewのセルのインデックス情報
     /// </summary>
     internal enum InputGridViewCellIndexes
-        {
+        {   
+            ID,
             Date,
             Price,
             Classification
-        }
-
-        /// <summary>
-        /// 使用した金額あたりの情報構造体
-        /// </summary>
-       internal class OneRecordData
-        {
-           internal OneRecordData(string paidDate,decimal price,string classification)
-            {
-                this.PaidDate = paidDate;
-                this.Price = price;
-                this.Classification = classification;
-            }
-            internal string PaidDate { get; }
-            internal decimal Price { get; }
-            internal string Classification { get; }
-            internal bool IsEmpty(){return PaidDate == null || Classification == null;}
         }
 
         /// <summary>
