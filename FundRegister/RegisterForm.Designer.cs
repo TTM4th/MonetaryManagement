@@ -28,163 +28,174 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.KubunListBox = new System.Windows.Forms.ListBox();
-            this.KubunGroupBox = new System.Windows.Forms.GroupBox();
-            this.SelectDateCalender = new System.Windows.Forms.MonthCalendar();
-            this.InputGridView = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Classification = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EnterButton = new System.Windows.Forms.Button();
-            this.DeleteButton = new System.Windows.Forms.Button();
-            this.RegisterButton = new System.Windows.Forms.Button();
-            this.InputGroupBox = new System.Windows.Forms.GroupBox();
-            this.KubunGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.InputGridView)).BeginInit();
-            this.InputGroupBox.SuspendLayout();
-            this.SuspendLayout();
+            KubunListBox = new System.Windows.Forms.ListBox();
+            KubunGroupBox = new System.Windows.Forms.GroupBox();
+            SelectDateCalender = new System.Windows.Forms.MonthCalendar();
+            InputGridView = new System.Windows.Forms.DataGridView();
+            EnterButton = new System.Windows.Forms.Button();
+            DeleteButton = new System.Windows.Forms.Button();
+            RegisterButton = new System.Windows.Forms.Button();
+            InputGroupBox = new System.Windows.Forms.GroupBox();
+            ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Classification = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            KubunGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)InputGridView).BeginInit();
+            InputGroupBox.SuspendLayout();
+            SuspendLayout();
             // 
             // KubunListBox
             // 
-            this.KubunListBox.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.KubunListBox.FormattingEnabled = true;
-            this.KubunListBox.Location = new System.Drawing.Point(14, 28);
-            this.KubunListBox.Name = "KubunListBox";
-            this.KubunListBox.Size = new System.Drawing.Size(146, 121);
-            this.KubunListBox.TabIndex = 0;
-            this.KubunListBox.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
+            KubunListBox.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
+            KubunListBox.FormattingEnabled = true;
+            KubunListBox.ItemHeight = 13;
+            KubunListBox.Location = new System.Drawing.Point(16, 35);
+            KubunListBox.Margin = new System.Windows.Forms.Padding(4);
+            KubunListBox.Name = "KubunListBox";
+            KubunListBox.Size = new System.Drawing.Size(170, 147);
+            KubunListBox.TabIndex = 0;
+            KubunListBox.SelectedIndexChanged += ListBox1_SelectedIndexChanged;
             // 
             // KubunGroupBox
             // 
-            this.KubunGroupBox.Controls.Add(this.KubunListBox);
-            this.KubunGroupBox.Location = new System.Drawing.Point(229, 32);
-            this.KubunGroupBox.Name = "KubunGroupBox";
-            this.KubunGroupBox.Size = new System.Drawing.Size(174, 168);
-            this.KubunGroupBox.TabIndex = 1;
-            this.KubunGroupBox.TabStop = false;
-            this.KubunGroupBox.Text = "区分";
+            KubunGroupBox.Controls.Add(KubunListBox);
+            KubunGroupBox.Location = new System.Drawing.Point(267, 40);
+            KubunGroupBox.Margin = new System.Windows.Forms.Padding(4);
+            KubunGroupBox.Name = "KubunGroupBox";
+            KubunGroupBox.Padding = new System.Windows.Forms.Padding(4);
+            KubunGroupBox.Size = new System.Drawing.Size(203, 210);
+            KubunGroupBox.TabIndex = 1;
+            KubunGroupBox.TabStop = false;
+            KubunGroupBox.Text = "区分";
             // 
             // SelectDateCalender
             // 
-            this.SelectDateCalender.Location = new System.Drawing.Point(18, 38);
-            this.SelectDateCalender.MaxSelectionCount = 1;
-            this.SelectDateCalender.Name = "SelectDateCalender";
-            this.SelectDateCalender.TabIndex = 2;
-            this.SelectDateCalender.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.SelectDateCalender_DateSelected);
+            SelectDateCalender.Location = new System.Drawing.Point(21, 48);
+            SelectDateCalender.Margin = new System.Windows.Forms.Padding(10, 11, 10, 11);
+            SelectDateCalender.MaxSelectionCount = 1;
+            SelectDateCalender.Name = "SelectDateCalender";
+            SelectDateCalender.TabIndex = 2;
+            SelectDateCalender.DateSelected += SelectDateCalender_DateSelected;
             // 
             // InputGridView
             // 
-            this.InputGridView.AllowUserToAddRows = false;
-            this.InputGridView.AllowUserToDeleteRows = false;
-            this.InputGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.InputGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID,
-            this.Date,
-            this.Price,
-            this.Classification});
-            this.InputGridView.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.InputGridView.Location = new System.Drawing.Point(13, 19);
-            this.InputGridView.MultiSelect = false;
-            this.InputGridView.Name = "InputGridView";
-            this.InputGridView.RowTemplate.Height = 21;
-            this.InputGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.InputGridView.Size = new System.Drawing.Size(273, 292);
-            this.InputGridView.TabIndex = 3;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ID.Visible = false;
-            // 
-            // Date
-            // 
-            this.Date.HeaderText = "日付";
-            this.Date.MaxInputLength = 10;
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            this.Date.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Price
-            // 
-            this.Price.HeaderText = "利用金額";
-            this.Price.Name = "Price";
-            this.Price.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Classification
-            // 
-            this.Classification.FillWeight = 30F;
-            this.Classification.HeaderText = "区分";
-            this.Classification.MaxInputLength = 1;
-            this.Classification.MinimumWidth = 30;
-            this.Classification.Name = "Classification";
-            this.Classification.ReadOnly = true;
-            this.Classification.Width = 30;
+            InputGridView.AllowUserToAddRows = false;
+            InputGridView.AllowUserToDeleteRows = false;
+            InputGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            InputGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { ID, Date, Price, Classification });
+            InputGridView.ImeMode = System.Windows.Forms.ImeMode.Off;
+            InputGridView.Location = new System.Drawing.Point(15, 24);
+            InputGridView.Margin = new System.Windows.Forms.Padding(4);
+            InputGridView.MultiSelect = false;
+            InputGridView.Name = "InputGridView";
+            InputGridView.RowTemplate.Height = 21;
+            InputGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            InputGridView.Size = new System.Drawing.Size(318, 365);
+            InputGridView.TabIndex = 3;
             // 
             // EnterButton
             // 
-            this.EnterButton.Location = new System.Drawing.Point(299, 19);
-            this.EnterButton.Name = "EnterButton";
-            this.EnterButton.Size = new System.Drawing.Size(75, 23);
-            this.EnterButton.TabIndex = 4;
-            this.EnterButton.Text = "追加";
-            this.EnterButton.UseVisualStyleBackColor = true;
-            this.EnterButton.Click += new System.EventHandler(this.EnterButton_Click);
+            EnterButton.Location = new System.Drawing.Point(349, 24);
+            EnterButton.Margin = new System.Windows.Forms.Padding(4);
+            EnterButton.Name = "EnterButton";
+            EnterButton.Size = new System.Drawing.Size(88, 29);
+            EnterButton.TabIndex = 4;
+            EnterButton.Text = "追加";
+            EnterButton.UseVisualStyleBackColor = true;
+            EnterButton.Click += EnterButton_Click;
             // 
             // DeleteButton
             // 
-            this.DeleteButton.Location = new System.Drawing.Point(299, 49);
-            this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(75, 23);
-            this.DeleteButton.TabIndex = 5;
-            this.DeleteButton.Text = "消去";
-            this.DeleteButton.UseVisualStyleBackColor = true;
-            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
+            DeleteButton.Location = new System.Drawing.Point(349, 61);
+            DeleteButton.Margin = new System.Windows.Forms.Padding(4);
+            DeleteButton.Name = "DeleteButton";
+            DeleteButton.Size = new System.Drawing.Size(88, 29);
+            DeleteButton.TabIndex = 5;
+            DeleteButton.Text = "消去";
+            DeleteButton.UseVisualStyleBackColor = true;
+            DeleteButton.Click += DeleteButton_Click;
             // 
             // RegisterButton
             // 
-            this.RegisterButton.Location = new System.Drawing.Point(299, 78);
-            this.RegisterButton.Name = "RegisterButton";
-            this.RegisterButton.Size = new System.Drawing.Size(74, 54);
-            this.RegisterButton.TabIndex = 6;
-            this.RegisterButton.Text = "登録";
-            this.RegisterButton.UseVisualStyleBackColor = true;
-            this.RegisterButton.Click += new System.EventHandler(this.RegisterButton_Click);
+            RegisterButton.Location = new System.Drawing.Point(349, 98);
+            RegisterButton.Margin = new System.Windows.Forms.Padding(4);
+            RegisterButton.Name = "RegisterButton";
+            RegisterButton.Size = new System.Drawing.Size(86, 68);
+            RegisterButton.TabIndex = 6;
+            RegisterButton.Text = "登録";
+            RegisterButton.UseVisualStyleBackColor = true;
+            RegisterButton.Click += RegisterButton_Click;
             // 
             // InputGroupBox
             // 
-            this.InputGroupBox.Controls.Add(this.InputGridView);
-            this.InputGroupBox.Controls.Add(this.RegisterButton);
-            this.InputGroupBox.Controls.Add(this.EnterButton);
-            this.InputGroupBox.Controls.Add(this.DeleteButton);
-            this.InputGroupBox.Location = new System.Drawing.Point(18, 212);
-            this.InputGroupBox.Name = "InputGroupBox";
-            this.InputGroupBox.Size = new System.Drawing.Size(385, 337);
-            this.InputGroupBox.TabIndex = 7;
-            this.InputGroupBox.TabStop = false;
-            this.InputGroupBox.Text = "入力データ";
+            InputGroupBox.Controls.Add(InputGridView);
+            InputGroupBox.Controls.Add(RegisterButton);
+            InputGroupBox.Controls.Add(EnterButton);
+            InputGroupBox.Controls.Add(DeleteButton);
+            InputGroupBox.Location = new System.Drawing.Point(21, 265);
+            InputGroupBox.Margin = new System.Windows.Forms.Padding(4);
+            InputGroupBox.Name = "InputGroupBox";
+            InputGroupBox.Padding = new System.Windows.Forms.Padding(4);
+            InputGroupBox.Size = new System.Drawing.Size(449, 421);
+            InputGroupBox.TabIndex = 7;
+            InputGroupBox.TabStop = false;
+            InputGroupBox.Text = "入力データ";
+            // 
+            // ID
+            // 
+            ID.HeaderText = "ID";
+            ID.Name = "ID";
+            ID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            ID.Visible = false;
+            // 
+            // Date
+            // 
+            Date.HeaderText = "日付";
+            Date.MaxInputLength = 10;
+            Date.MinimumWidth = 120;
+            Date.Name = "Date";
+            Date.ReadOnly = true;
+            Date.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            Date.Width = 120;
+            // 
+            // Price
+            // 
+            Price.HeaderText = "利用金額";
+            Price.MinimumWidth = 120;
+            Price.Name = "Price";
+            Price.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            Price.Width = 120;
+            // 
+            // Classification
+            // 
+            Classification.FillWeight = 30F;
+            Classification.HeaderText = "区分";
+            Classification.MaxInputLength = 1;
+            Classification.MinimumWidth = 35;
+            Classification.Name = "Classification";
+            Classification.ReadOnly = true;
+            Classification.Width = 35;
             // 
             // RegisterForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(415, 567);
-            this.Controls.Add(this.InputGroupBox);
-            this.Controls.Add(this.SelectDateCalender);
-            this.Controls.Add(this.KubunGroupBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.Name = "RegisterForm";
-            this.Text = "データ入力";
-            this.Load += new System.EventHandler(this.RegisterForm_Load);
-            this.KubunGroupBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.InputGridView)).EndInit();
-            this.InputGroupBox.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.SystemColors.Control;
+            ClientSize = new System.Drawing.Size(484, 709);
+            Controls.Add(InputGroupBox);
+            Controls.Add(SelectDateCalender);
+            Controls.Add(KubunGroupBox);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Margin = new System.Windows.Forms.Padding(4);
+            MaximizeBox = false;
+            Name = "RegisterForm";
+            Text = "データ入力";
+            Load += RegisterForm_Load;
+            KubunGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)InputGridView).EndInit();
+            InputGroupBox.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
