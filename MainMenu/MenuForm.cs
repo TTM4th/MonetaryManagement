@@ -12,12 +12,13 @@ namespace MainMenu
             DataController = new DataController();
             this.TableNameComboBox.DataSource = DataController.MonthlyTableNames;
             //更新処理アクションで行いたい処理を具体実装する
-            this.ReflectNowBalance = 
-               () => {
-                    this.NowBalanceValue = DataController.GetCurrentBalance();
-                    this.NowBalanceLabel.Text = this.NowBalanceValue.ToString();
-                    this.NowBalanceLabel.Update();
-                    };
+            this.ReflectNowBalance =
+               () =>
+               {
+                   this.NowBalanceValue = DataController.GetCurrentBalance();
+                   this.NowBalanceLabel.Text = this.NowBalanceValue.ToString();
+                   this.NowBalanceLabel.Update();
+               };
         }
 
         private DataController DataController { get; }
@@ -43,6 +44,11 @@ namespace MainMenu
         {
             FundCollator.FrontEnd.FundCollatorFormAccessor.RunFundCollatorForm(this.NowBalanceValue);
             this.Show();
+        }
+
+        private void TableNameComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            this.sumByClassBox.RelfectFromUsedData((string)TableNameComboBox.SelectedItem);
         }
     }
 }
