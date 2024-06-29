@@ -24,7 +24,8 @@ namespace FundRegister.Controller
             checkinValidFuncs = new List<Func<DataGridViewRow, bool>>
             {
                 row => row.Cells[(int)InputGridViewCellIndexes.ID].Value is null,
-                row => row.Cells[(int)InputGridViewCellIndexes.Price].Value is null ? true : decimal.TryParse(row.Cells[(int)InputGridViewCellIndexes.Price].Value.ToString(), out decimal price) == false,
+                row => row.Cells[(int)InputGridViewCellIndexes.Price].Value is null ? true : 
+                        decimal.TryParse(row.Cells[(int)InputGridViewCellIndexes.Price].Value.ToString(), out decimal price) == false,
                 row => row.Cells[(int)InputGridViewCellIndexes.Date].Value is null,
                 row => row.Cells[(int)InputGridViewCellIndexes.Classification].Value is null
             };
@@ -53,12 +54,6 @@ namespace FundRegister.Controller
         /// </summary>
         internal string PaidDate_gv
         {
-            /*get
-            {
-                var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewCellIndexes.Date].Value;
-                if (tmp == null) { return string.Empty; }
-                else { return tmp.ToString(); }
-            }*/
             set { ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewCellIndexes.Date].Value = value; }
         }
 
@@ -68,12 +63,6 @@ namespace FundRegister.Controller
         /// </summary>
         internal string Classification_gv
         {
-            /*get
-            {
-                var tmp = ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewCellIndexes.Classification].Value;
-                if (tmp == null) { return string.Empty; }
-                else { return tmp.ToString(); }
-            }*/
             set { ParentForm.InputGridView.Rows[TargetIndex].Cells[(int)InputGridViewCellIndexes.Classification].Value = value; }
         }
 
@@ -159,7 +148,7 @@ namespace FundRegister.Controller
                     this.MoveToFirstInValidRow();
                     return; 
                 }
-                var uploaddata = this.InputDataList.Select(x => new DBConnector.Entity.MoneyUsedData()
+                var uploaddata = this.InputDataList.Select(x => new DBConnector.Entity.MoneyUsedDataEntity()
                 {
                     ID = (int)x.Cells[(int)InputGridViewCellIndexes.ID].Value,
                     Date = x.Cells[(int)InputGridViewCellIndexes.Date].Value.ToString(),
@@ -185,7 +174,7 @@ namespace FundRegister.Controller
                 ParentForm.InputGridView.Rows[0].Cells[(int)InputGridViewCellIndexes.ID].Value = 1;
                 return;
             }
-            foreach(DBConnector.Entity.MoneyUsedData entity in dataAccessor.MoneyUsedDataEntitiesFromTable)
+            foreach(DBConnector.Entity.MoneyUsedDataEntity entity in dataAccessor.MoneyUsedDataEntitiesFromTable)
             {
                 ParentForm.InputGridView.Rows.Add(entity.ID,entity.Date,entity.Price,entity.Classification);
             }

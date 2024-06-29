@@ -52,15 +52,15 @@ namespace UnitTestProject1
             if (testManger.IsExistMonetaryTable(tableName)) { testManger.InitializeTable(tableName); }
             else { testManger.CreateTable(tableName); }
 
-            var uploadObj = new List<DBConnector.Entity.MoneyUsedData>
+            var uploadObj = new List<DBConnector.Entity.MoneyUsedDataEntity>
             {
-                new DBConnector.Entity.MoneyUsedData { ID = 1, Date = "1999/01/02", Price = -15000, Classification = "?" },
-                new DBConnector.Entity.MoneyUsedData { ID = 2, Date = "1999/01/02", Price = 108, Classification = "2" }
+                new DBConnector.Entity.MoneyUsedDataEntity { ID = 1, Date = "1999/01/02", Price = -15000, Classification = "?" },
+                new DBConnector.Entity.MoneyUsedDataEntity { ID = 2, Date = "1999/01/02", Price = 108, Classification = "2" }
             };
 
             testObj.UploadMonetaryData(uploadObj);
             testObj.GetMonetarydata();
-            foreach (DBConnector.Entity.MoneyUsedData data in testObj.MoneyUsedDataEntitiesFromTable)
+            foreach (DBConnector.Entity.MoneyUsedDataEntity data in testObj.MoneyUsedDataEntitiesFromTable)
             {
                 Console.WriteLine($"{data.ID}|{data.Date}|{data.Price}|{data.Classification}");
             }
@@ -76,16 +76,16 @@ namespace UnitTestProject1
             if (testManger.IsExistMonetaryTable(tableName)) { testManger.InitializeTable(tableName); }
             else { testManger.CreateTable(tableName); }
 
-            var uploadObj = new List<DBConnector.Entity.MoneyUsedData>
+            var uploadObj = new List<DBConnector.Entity.MoneyUsedDataEntity>
             {
-                new DBConnector.Entity.MoneyUsedData { ID = 1, Date = "1999/01/02", Price = -15000, Classification = "8" },
-                new DBConnector.Entity.MoneyUsedData { ID = 2, Date = "1999/01/02", Price = 108, Classification = "3" },
-                new DBConnector.Entity.MoneyUsedData { ID = 3, Date = "1999/01/02", Price = 108, Classification = "2" }
+                new DBConnector.Entity.MoneyUsedDataEntity { ID = 1, Date = "1999/01/02", Price = -15000, Classification = "8" },
+                new DBConnector.Entity.MoneyUsedDataEntity { ID = 2, Date = "1999/01/02", Price = 108, Classification = "3" },
+                new DBConnector.Entity.MoneyUsedDataEntity { ID = 3, Date = "1999/01/02", Price = 108, Classification = "2" }
             };
 
             testObj.UploadMonetaryData(uploadObj);
             testObj.GetMonetarydata();
-            foreach (DBConnector.Entity.MoneyUsedData data in testObj.MoneyUsedDataEntitiesFromTable)
+            foreach (DBConnector.Entity.MoneyUsedDataEntity data in testObj.MoneyUsedDataEntitiesFromTable)
             {
                 Console.WriteLine($"{data.ID}|{data.Date}|{data.Price}|{data.Classification}");
             }
@@ -101,15 +101,15 @@ namespace UnitTestProject1
             if (testManger.IsExistMonetaryTable(tableName)) { testManger.InitializeTable(tableName); }
             else { testManger.CreateTable(tableName); }
 
-            var uploadObj = new List<DBConnector.Entity.MoneyUsedData>
+            var uploadObj = new List<DBConnector.Entity.MoneyUsedDataEntity>
             {
-                new DBConnector.Entity.MoneyUsedData { ID = 1, Date = "1999/01/02", Price = -15000, Classification = "8" },
-                new DBConnector.Entity.MoneyUsedData { ID = 3, Date = "1999/01/02", Price = 108, Classification = "2" }
+                new DBConnector.Entity.MoneyUsedDataEntity { ID = 1, Date = "1999/01/02", Price = -15000, Classification = "8" },
+                new DBConnector.Entity.MoneyUsedDataEntity { ID = 3, Date = "1999/01/02", Price = 108, Classification = "2" }
             };
 
             testObj.UploadMonetaryData(uploadObj);
             testObj.GetMonetarydata();
-            foreach (DBConnector.Entity.MoneyUsedData data in testObj.MoneyUsedDataEntitiesFromTable)
+            foreach (DBConnector.Entity.MoneyUsedDataEntity data in testObj.MoneyUsedDataEntitiesFromTable)
             {
                 Console.WriteLine($"{data.ID}|{data.Date}|{data.Price}|{data.Classification}");
             }
