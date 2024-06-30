@@ -65,7 +65,7 @@ namespace MainMenu
 
         private void RunFundRegister_Click(object sender, EventArgs e)
         {
-            //FundRegister.FrontEnd.RegisterFormAccessor.RunRegisterForm((string)TableNameComboBox.SelectedItem);
+            FundRegister.FrontEnd.RegisterFormAccessor.RunRegisterForm((string)TableNameComboBox.SelectedItem);
             this.Show();
             this.ReflectNowBalance();
         }

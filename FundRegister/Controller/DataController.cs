@@ -5,6 +5,8 @@ using FundRegister.Definition;
 using System.Windows.Forms;
 using System.Data;
 using DBConnector.Accessor;
+using DBConnector.Data;
+using FundRegister.FrontEnd;
 namespace FundRegister.Controller
 {
     class DataController
@@ -18,9 +20,10 @@ namespace FundRegister.Controller
         /// コンストラクタ
         /// </summary>
         /// <param name="parntFormObj">親にしたいRegisterForm</param>
-        internal DataController(RegisterForm parntFormObj) {
+        internal DataController(RegisterForm parntFormObj, IMoneyUsedData moneyUsedData) {
             ParentForm = parntFormObj;
             Classifications = new Classifications().ClassificationItems;
+            _moneyUsedData = moneyUsedData;
             checkinValidFuncs = new List<Func<DataGridViewRow, bool>>
             {
                 row => row.Cells[(int)InputGridViewCellIndexes.ID].Value is null,
@@ -38,6 +41,8 @@ namespace FundRegister.Controller
         private int TargetIndex { get { return ParentForm.InputGridView.CurrentRow.Index; } }
 
         private IEnumerable<Classifications.Classification> Classifications { get; }
+
+        private readonly IMoneyUsedData _moneyUsedData;
 
         /// <summary>
         /// 「区分」リストボックスのマッピング処理
@@ -140,8 +145,7 @@ namespace FundRegister.Controller
         /// </summary>
         internal void ReflectToDB()
         {
-            MoneyUsedDataAccessor accessor = new MoneyUsedDataAccessor(FrontEnd.State.TargetTableName);
-            if (this.IsZeroRows) { accessor.DeleteMonetaryData(); }
+            if (this.IsZeroRows) { _moneyUsedData.DeleteMonetaryData(State.TargetYear, State.TargetMonth); }
             else
             {
                 if (this.HasInValidRows) {
@@ -156,7 +160,7 @@ namespace FundRegister.Controller
                     Classification = x.Cells[(int)InputGridViewCellIndexes.Classification].Value.ToString()
                 })
                 .Where(data => !(data.Date is null || data.Classification is null)).ToList();
-                accessor.UploadMonetaryData(uploaddata);
+                _moneyUsedData.UploadMonetaryData(uploaddata, State.TargetYear, State.TargetMonth);
                 ParentForm.InputGridView.Rows.Clear();
                 this.ReflectGridFromDB();
             }
@@ -167,14 +171,13 @@ namespace FundRegister.Controller
         /// </summary>
         internal void ReflectGridFromDB()
         {
-            var dataAccessor = new MoneyUsedDataAccessor(FrontEnd.State.TargetTableName);
-            dataAccessor.GetMonetarydata();
-            if (!dataAccessor.MoneyUsedDataEntitiesFromTable.Any()) {
+            var data = _moneyUsedData.LoadMoneyUsedData(State.TargetYear, State.TargetMonth);
+            if (!(data?.Any() ?? false)) {
                 ParentForm.InputGridView.Rows.Add();
                 ParentForm.InputGridView.Rows[0].Cells[(int)InputGridViewCellIndexes.ID].Value = 1;
                 return;
             }
-            foreach(DBConnector.Entity.MoneyUsedDataEntity entity in dataAccessor.MoneyUsedDataEntitiesFromTable)
+            foreach(DBConnector.Entity.MoneyUsedDataEntity entity in data)
             {
                 ParentForm.InputGridView.Rows.Add(entity.ID,entity.Date,entity.Price,entity.Classification);
             }
