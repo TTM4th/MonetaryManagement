@@ -46,7 +46,13 @@ namespace MainMenu
         {
             foreach (KeyValuePair<string, Label> valuePair in SumPriceLabels)
             {
-                valuePair.Value.Text = $"{valuePair.Key}　：￥　{data[item[valuePair.Key]]}";
+                var sumed = 0m;
+                var dataKey = item[valuePair.Key];
+                if (data.ContainsKey(dataKey))
+                {
+                    sumed = data[dataKey];
+                }
+                valuePair.Value.Text = $"{valuePair.Key}　：￥　{sumed}";
             }
         }
 

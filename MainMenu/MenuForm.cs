@@ -1,5 +1,6 @@
 ﻿using DBConnector.Accessor;
 using DBConnector.Data;
+using DBConnector.Model;
 using DBConnector.Service;
 using System;
 using System.Windows.Forms;
@@ -14,7 +15,8 @@ namespace MainMenu
 
             _service = new MenuFormService(
                 new MonthlyFundData(new MonetaryManagementDataAdapter()),
-                new MoneyUsedData(new MonetaryManagementDataAdapter()));
+                new MoneyUsedData(new MonetaryManagementDataAdapter())
+                );
             if (!_service.IsExistFirstBalance())
             {
                 _service.InsertFromPreviousMonth();
@@ -26,11 +28,11 @@ namespace MainMenu
 
             _model = _service.CreateViewModel();
 
+            this.TableNameComboBox.DataSource = _model.MonthlyTableNames;
             //更新処理アクションで行いたい処理を具体実装する
             this.ReflectNowBalance =
                () =>
                {
-                   this.TableNameComboBox.DataSource = _model.MonthlyTableNames;
                    this.NowBalanceValue = _model.CurrentBalance;
                    this.NowBalanceLabel.Text = this.NowBalanceValue.ToString();
                    this.NowBalanceLabel.Update();
@@ -59,7 +61,7 @@ namespace MainMenu
 
         private void RunFundRegister_Click(object sender, EventArgs e)
         {
-            FundRegister.FrontEnd.RegisterFormAccessor.RunRegisterForm((string)TableNameComboBox.SelectedItem);
+            //FundRegister.FrontEnd.RegisterFormAccessor.RunRegisterForm((string)TableNameComboBox.SelectedItem);
             this.Show();
             this.ReflectNowBalance();
         }
@@ -74,7 +76,6 @@ namespace MainMenu
         private void TableNameComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             this.sumByClassBox.RelfectFromUsedData(_model.MoneyUsedData);
-            this.ReflectNowBalance();
         }
     }
 }
