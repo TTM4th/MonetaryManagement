@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using DBConnector.Data;
 using FundRegister.Definition;
-using System.Windows.Forms;
-using System.Data;
-using DBConnector.Accessor;
-using DBConnector.Data;
 using FundRegister.FrontEnd;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Windows.Forms;
 namespace FundRegister.Controller
 {
     class DataController
