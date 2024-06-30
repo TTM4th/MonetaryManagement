@@ -17,6 +17,10 @@ namespace MainMenu
                 new MonthlyFundData(new MonetaryManagementDataAdapter()),
                 new MoneyUsedData(new MonetaryManagementDataAdapter())
                 );
+            if (!_service.IsExistMonthlyFundTable())
+            {
+                _service.CreateMonthlyFundTable();
+            }
             if (!_service.IsExistFirstBalance())
             {
                 _service.InsertFromPreviousMonth();
