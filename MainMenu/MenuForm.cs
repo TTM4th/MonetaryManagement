@@ -24,19 +24,22 @@ namespace MainMenu
                 _service.CreateMonetaryTable();
             }
 
+            _model = _service.CreateViewModel();
+
             //更新処理アクションで行いたい処理を具体実装する
             this.ReflectNowBalance =
                () =>
                {
-                   var model = _service.CreateViewModel();
-                   this.TableNameComboBox.DataSource = model.MonthlyTableNames;
-                   this.NowBalanceValue = model.CurrentBalance;
+                   this.TableNameComboBox.DataSource = _model.MonthlyTableNames;
+                   this.NowBalanceValue = _model.CurrentBalance;
                    this.NowBalanceLabel.Text = this.NowBalanceValue.ToString();
                    this.NowBalanceLabel.Update();
                };
         }
 
         private readonly MenuFormService _service;
+
+        private MenuFormModel _model;
 
         /// <summary>
         /// 更新処理アクション
@@ -70,7 +73,7 @@ namespace MainMenu
 
         private void TableNameComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            this.sumByClassBox.RelfectFromUsedData((string)TableNameComboBox.SelectedItem);
+            this.sumByClassBox.RelfectFromUsedData(_model.MoneyUsedData);
             this.ReflectNowBalance();
         }
     }

@@ -1,4 +1,5 @@
-﻿using MonetaryManagementDefinitions.Flags;
+﻿using DBConnector.Entity;
+using MonetaryManagementDefinitions.Flags;
 using System.Collections.Generic;
 using System.Drawing.Text;
 using System.Linq;
@@ -41,19 +42,13 @@ namespace MainMenu
             };
         }
 
-        public void RelfectFromUsedData(string tableName)
+        public void RelfectFromUsedData(IDictionary<string, decimal> data)
         {
-            var accessor = new DBConnector.Accessor.MoneyUsedDataAccessor(tableName);
-            accessor.GetMonetarydata();
-            foreach(KeyValuePair<string,Label>valuePair in SumPriceLabels)
+            foreach (KeyValuePair<string, Label> valuePair in SumPriceLabels)
             {
-                var flag = item[valuePair.Key];
-                var sumprice = accessor.MoneyUsedDataEntitiesFromTable.Where(x => x.Classification == flag).Select(x => x.Price).Sum();
-                valuePair.Value.Text = $"{valuePair.Key}　：￥　{sumprice}";
+                valuePair.Value.Text = $"{valuePair.Key}　：￥　{data[item[valuePair.Key]]}";
             }
         }
-
-        
 
     }
 
