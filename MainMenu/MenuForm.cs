@@ -30,9 +30,6 @@ namespace MainMenu
                 _service.CreateMonetaryTable();
             }
 
-            _model = _service.CreateViewModel();
-
-            this.TableNameComboBox.DataSource = _model.MonthlyTableNames;
             //更新処理アクションで行いたい処理を具体実装する
             this.ReflectNowBalance =
                () =>
@@ -41,6 +38,12 @@ namespace MainMenu
                    this.NowBalanceLabel.Text = this.NowBalanceValue.ToString();
                    this.NowBalanceLabel.Update();
                };
+            this.RelfectSumByClass = () =>
+            {
+                var year_mm = TableNameComboBox.SelectedItem.ToString().Split("-");
+                _model.MoneyUsedData = _service.LoadSumPricesByClassification(year_mm[0], year_mm[1]);
+                this.sumByClassBox.RelfectFromUsedData(_model.MoneyUsedData);
+            };
         }
 
         private readonly MenuFormService _service;
@@ -53,12 +56,19 @@ namespace MainMenu
         private Action ReflectNowBalance;
 
         /// <summary>
+        /// 区分別集計値ビュー更新アクション
+        /// </summary>
+        private Action RelfectSumByClass;
+
+        /// <summary>
         /// 現在金額（10進数型）
         /// </summary>
         private decimal NowBalanceValue;
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            _model = _service.CreateViewModel();
+            this.TableNameComboBox.DataSource = _model.MonthlyTableNames;
             TableNameComboBox.SelectedIndex = 0;
             this.ReflectNowBalance();
         }
@@ -67,19 +77,23 @@ namespace MainMenu
         {
             FundRegister.FrontEnd.RegisterFormAccessor.RunRegisterForm((string)TableNameComboBox.SelectedItem);
             this.Show();
+
+            _model.CurrentBalance = _service.GetCurrentBalance();
             this.ReflectNowBalance();
+
+            this.RelfectSumByClass();
+
         }
 
         private void Button_Run_collator_Click(object sender, EventArgs e)
         {
             FundCollator.FrontEnd.FundCollatorFormAccessor.RunFundCollatorForm(this.NowBalanceValue);
             this.Show();
-            this.ReflectNowBalance();
         }
 
         private void TableNameComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            this.sumByClassBox.RelfectFromUsedData(_model.MoneyUsedData);
+            this.RelfectSumByClass();
         }
     }
 }
