@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using DBConnector.Accessor;
+using DBConnector.Data;
 using FundRegister.Controller;
 
 namespace FundRegister
@@ -23,7 +25,7 @@ namespace FundRegister
         internal RegisterForm()
         {
             InitializeComponent();
-            this.Controller = new DataController(this);
+            this.Controller = new DataController(this, new MoneyUsedData(new MonetaryManagementDataAdapter()));
         }
 
 

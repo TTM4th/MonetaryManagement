@@ -35,13 +35,6 @@ namespace UnitTestProject1
             Console.WriteLine($"Is Exist Table ? ANS={testObj.IsExistMonetaryTable("TEST")}");
         }
 
-        [TestMethod]//月別利用額テーブルの消去テスト
-        public void InitializeTable()
-        {
-            var testObj = new DBConnector.Controller.MoneyUsedDataTableManager();
-            testObj.InitializeTable("TEST");
-        }
-
         [TestMethod]//月別利用額テーブルのデータ挿入テスト
         public void InsertTable()
         {
@@ -52,15 +45,15 @@ namespace UnitTestProject1
             if (testManger.IsExistMonetaryTable(tableName)) { testManger.InitializeTable(tableName); }
             else { testManger.CreateTable(tableName); }
 
-            var uploadObj = new List<DBConnector.Entity.MoneyUsedData>
+            var uploadObj = new List<DBConnector.Entity.MoneyUsedDataEntity>
             {
-                new DBConnector.Entity.MoneyUsedData { ID = 1, Date = "1999/01/02", Price = -15000, Classification = "?" },
-                new DBConnector.Entity.MoneyUsedData { ID = 2, Date = "1999/01/02", Price = 108, Classification = "2" }
+                new DBConnector.Entity.MoneyUsedDataEntity { ID = 1, Date = "1999/01/02", Price = -15000, Classification = "?" },
+                new DBConnector.Entity.MoneyUsedDataEntity { ID = 2, Date = "1999/01/02", Price = 108, Classification = "2" }
             };
 
             testObj.UploadMonetaryData(uploadObj);
             testObj.GetMonetarydata();
-            foreach (DBConnector.Entity.MoneyUsedData data in testObj.MoneyUsedDataEntitiesFromTable)
+            foreach (DBConnector.Entity.MoneyUsedDataEntity data in testObj.MoneyUsedDataEntitiesFromTable)
             {
                 Console.WriteLine($"{data.ID}|{data.Date}|{data.Price}|{data.Classification}");
             }
@@ -76,16 +69,16 @@ namespace UnitTestProject1
             if (testManger.IsExistMonetaryTable(tableName)) { testManger.InitializeTable(tableName); }
             else { testManger.CreateTable(tableName); }
 
-            var uploadObj = new List<DBConnector.Entity.MoneyUsedData>
+            var uploadObj = new List<DBConnector.Entity.MoneyUsedDataEntity>
             {
-                new DBConnector.Entity.MoneyUsedData { ID = 1, Date = "1999/01/02", Price = -15000, Classification = "8" },
-                new DBConnector.Entity.MoneyUsedData { ID = 2, Date = "1999/01/02", Price = 108, Classification = "3" },
-                new DBConnector.Entity.MoneyUsedData { ID = 3, Date = "1999/01/02", Price = 108, Classification = "2" }
+                new DBConnector.Entity.MoneyUsedDataEntity { ID = 1, Date = "1999/01/02", Price = -15000, Classification = "8" },
+                new DBConnector.Entity.MoneyUsedDataEntity { ID = 2, Date = "1999/01/02", Price = 108, Classification = "3" },
+                new DBConnector.Entity.MoneyUsedDataEntity { ID = 3, Date = "1999/01/02", Price = 108, Classification = "2" }
             };
 
             testObj.UploadMonetaryData(uploadObj);
             testObj.GetMonetarydata();
-            foreach (DBConnector.Entity.MoneyUsedData data in testObj.MoneyUsedDataEntitiesFromTable)
+            foreach (DBConnector.Entity.MoneyUsedDataEntity data in testObj.MoneyUsedDataEntitiesFromTable)
             {
                 Console.WriteLine($"{data.ID}|{data.Date}|{data.Price}|{data.Classification}");
             }
@@ -101,15 +94,15 @@ namespace UnitTestProject1
             if (testManger.IsExistMonetaryTable(tableName)) { testManger.InitializeTable(tableName); }
             else { testManger.CreateTable(tableName); }
 
-            var uploadObj = new List<DBConnector.Entity.MoneyUsedData>
+            var uploadObj = new List<DBConnector.Entity.MoneyUsedDataEntity>
             {
-                new DBConnector.Entity.MoneyUsedData { ID = 1, Date = "1999/01/02", Price = -15000, Classification = "8" },
-                new DBConnector.Entity.MoneyUsedData { ID = 3, Date = "1999/01/02", Price = 108, Classification = "2" }
+                new DBConnector.Entity.MoneyUsedDataEntity { ID = 1, Date = "1999/01/02", Price = -15000, Classification = "8" },
+                new DBConnector.Entity.MoneyUsedDataEntity { ID = 3, Date = "1999/01/02", Price = 108, Classification = "2" }
             };
 
             testObj.UploadMonetaryData(uploadObj);
             testObj.GetMonetarydata();
-            foreach (DBConnector.Entity.MoneyUsedData data in testObj.MoneyUsedDataEntitiesFromTable)
+            foreach (DBConnector.Entity.MoneyUsedDataEntity data in testObj.MoneyUsedDataEntitiesFromTable)
             {
                 Console.WriteLine($"{data.ID}|{data.Date}|{data.Price}|{data.Classification}");
             }
@@ -119,24 +112,24 @@ namespace UnitTestProject1
         public void GetMontlySumTEST()
         {
             var obj = new DBConnector.Controller.MoneyUsedDataTableManager();
-            Console.WriteLine(obj.GetMonthlyPrice("2021", "03"));
+            Console.WriteLine(obj.GetMonthlySumPrice("2021", "03"));
         }
 
         [TestMethod]//月単位の残額を取得するテスト
         public void GetMontlyBalanceTEST()
         {
-            var obj = new DBConnector.Accessor.MonthlyFundAccessor();
+            var obj = new DBConnector.Accessor.MonthlyFundService();
             var obj2 = new DBConnector.Controller.MoneyUsedDataTableManager();
             //月初日のデータが無い場合（前月の月別テーブルは存在する）-> これエラーケースなのでテストしない
             //Console.WriteLine(obj.GetMonthFirstBalance(2020, 5));
 
             //月初日のデータが無い場合（前月の月別テーブルと前月初日の残額情報はある）
-            Console.WriteLine(obj.GetMonthFirstBalance(2021, 5));
+            Console.WriteLine(obj.LoadMonthFirstBalance(2021, 5));
             //月初日のデータがない場合（1か月前の月別テーブルと前月初日の残額情報が存在しない）
             int[] searchyear = { 2021, 8 };
             if (obj2.IsExistMonetaryTable($"{searchyear[0]}-{searchyear[1].ToString("00")}") == false) { obj2.CreateTable($"{searchyear[0]}-{searchyear[1].ToString("00")}"); }
 
-            Console.WriteLine(obj.GetMonthFirstBalance(searchyear[0], searchyear[1]));
+            Console.WriteLine(obj.LoadMonthFirstBalance(searchyear[0], searchyear[1]));
         }
     }
 }
