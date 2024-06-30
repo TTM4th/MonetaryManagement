@@ -10,10 +10,45 @@ namespace FundRegister.Controller
 {
     class DataController
     {
-        private readonly List<Func<DataGridViewRow, bool>> checkinValidFuncs;
 
         //送信元のフォームオブジェクト
-        private RegisterForm ParentForm { get; }
+        private readonly RegisterForm ParentForm;
+
+        /// <summary>
+        /// セット先のインデックス情報を状況に応じて返す（非選択の場合/選択している場合）
+        /// </summary>
+        /// <returns>セット先の行インデックス情報</returns>
+        private int TargetIndex => ParentForm.InputGridView.CurrentRow.Index;
+
+        /// <summary>
+        /// 使用金額区分フラグリスト
+        /// </summary>
+        private readonly IEnumerable<Classifications.Classification> Classifications;
+
+        /// <summary>
+        /// 金額使用DB操作オブジェクト
+        /// </summary>
+        private readonly IMoneyUsedData _moneyUsedData;
+
+        /// <summary>
+        /// InputGridviewに入力した項目をIReadOnlyList形式で取得する
+        /// </summary>
+        private IReadOnlyList<DataGridViewRow> InputDataList => ParentForm.InputGridView.Rows.OfType<DataGridViewRow>().ToList();
+
+        /// <summary>
+        /// InputGridViewの各セルの有効値チェック関数リスト
+        /// </summary>
+        private readonly IEnumerable<Func<DataGridViewRow, bool>> IsExistInValidColumnFuncs;
+
+        /// <summary>
+        /// データ登録ができる行が一つもないかどうか判別する
+        /// </summary>
+        private bool IsZeroRows => this.InputDataList.All(row => this.IsExistInValidColumnFuncs.All(fnc => fnc(row)));
+
+        /// <summary>
+        /// データ登録にあたって無効値を含む行が存在するか判別する
+        /// </summary>
+        internal bool HasInValidRows => this.InputDataList.Any(row => this.IsExistInValidColumnFuncs.Any(fnc => fnc(row)));
 
         /// <summary>
         /// コンストラクタ
@@ -23,7 +58,7 @@ namespace FundRegister.Controller
             ParentForm = parntFormObj;
             Classifications = new Classifications().ClassificationItems;
             _moneyUsedData = moneyUsedData;
-            checkinValidFuncs = new List<Func<DataGridViewRow, bool>>
+            IsExistInValidColumnFuncs = new List<Func<DataGridViewRow, bool>>
             {
                 row => row.Cells[(int)InputGridViewCellIndexes.ID].Value is null,
                 row => row.Cells[(int)InputGridViewCellIndexes.Price].Value is null ? true : 
@@ -32,16 +67,6 @@ namespace FundRegister.Controller
                 row => row.Cells[(int)InputGridViewCellIndexes.Classification].Value is null
             };
         }
-
-        /// <summary>
-        /// セット先のインデックス情報を状況に応じて返す（非選択の場合/選択している場合）
-        /// </summary>
-        /// <returns>セット先の行インデックス情報</returns>
-        private int TargetIndex { get { return ParentForm.InputGridView.CurrentRow.Index; } }
-
-        private IEnumerable<Classifications.Classification> Classifications { get; }
-
-        private readonly IMoneyUsedData _moneyUsedData;
 
         /// <summary>
         /// 「区分」リストボックスのマッピング処理
@@ -92,27 +117,6 @@ namespace FundRegister.Controller
         }
 
         #endregion
-
-        /// <summary>
-        /// InputGridviewに入力した項目をIReadOnlyList形式で取得する
-        /// </summary>
-        private IReadOnlyList<DataGridViewRow> InputDataList => ParentForm.InputGridView.Rows.OfType<DataGridViewRow>().ToList();
-
-        /// <summary>
-        /// InputGridViewの各セルの有効値チェック関数リスト
-        /// </summary>
-        private IReadOnlyList<Func<DataGridViewRow, bool>> CheckinValidFuncs => checkinValidFuncs;
-
-        /// <summary>
-        /// データ登録ができる行が一つもないかどうか判別する
-        /// </summary>
-        private bool IsZeroRows => this.InputDataList.All(row => this.CheckinValidFuncs.All(fnc => fnc(row)));
-
-        /// <summary>
-        /// データ登録にあたって無効値を含む行が存在するか判別する
-        /// </summary>
-        internal bool HasInValidRows => this.InputDataList.Any(row => this.CheckinValidFuncs.Any(fnc => fnc(row)));
-
         /// <summary>
         /// 行追加時に行う処理
         /// </summary>
@@ -131,9 +135,9 @@ namespace FundRegister.Controller
         internal void MoveToFirstInValidRow()
         {
             MessageBox.Show("入力欄に有効な値を入力してください");
+            var targetindex = this.InputDataList.First(row => this.IsExistInValidColumnFuncs.Any(fnc => fnc(row))).Index;
             ParentForm.InputGridView.CurrentCell = null;
             ParentForm.InputGridView.ClearSelection();
-            var targetindex = this.InputDataList.First(row => this.CheckinValidFuncs.Any(fnc => fnc(row))).Index;
             ParentForm.InputGridView.Rows[targetindex].Selected = true;
             ParentForm.InputGridView.CurrentCell = ParentForm.InputGridView[(int)InputGridViewCellIndexes.Date, targetindex];
             ParentForm.InputGridView.FirstDisplayedScrollingRowIndex = targetindex;
@@ -144,25 +148,27 @@ namespace FundRegister.Controller
         /// </summary>
         internal void ReflectToDB()
         {
-            if (this.IsZeroRows) { _moneyUsedData.DeleteMonetaryData(State.TargetYear, State.TargetMonth); }
-            else
-            {
-                if (this.HasInValidRows) {
-                    this.MoveToFirstInValidRow();
-                    return; 
-                }
-                var uploaddata = this.InputDataList.Select(x => new DBConnector.Entity.MoneyUsedDataEntity()
-                {
-                    ID = (int)x.Cells[(int)InputGridViewCellIndexes.ID].Value,
-                    Date = x.Cells[(int)InputGridViewCellIndexes.Date].Value.ToString(),
-                    Price = Convert.ToDecimal(x.Cells[(int)InputGridViewCellIndexes.Price].Value),
-                    Classification = x.Cells[(int)InputGridViewCellIndexes.Classification].Value.ToString()
-                })
-                .Where(data => !(data.Date is null || data.Classification is null)).ToList();
-                _moneyUsedData.UploadMonetaryData(uploaddata, State.TargetYear, State.TargetMonth);
-                ParentForm.InputGridView.Rows.Clear();
-                this.ReflectGridFromDB();
+            if (this.IsZeroRows)
+            { 
+                _moneyUsedData.DeleteMonetaryData(State.TargetYear, State.TargetMonth);
+                return;
             }
+            else if (this.HasInValidRows)
+            {
+                this.MoveToFirstInValidRow();
+                return;
+            }
+            var uploaddata = this.InputDataList.Select(x => new DBConnector.Entity.MoneyUsedDataEntity()
+            {
+                ID = (int)x.Cells[(int)InputGridViewCellIndexes.ID].Value,
+                Date = x.Cells[(int)InputGridViewCellIndexes.Date].Value.ToString(),
+                Price = Convert.ToDecimal(x.Cells[(int)InputGridViewCellIndexes.Price].Value),
+                Classification = x.Cells[(int)InputGridViewCellIndexes.Classification].Value.ToString()
+            })
+            .Where(data => !(data.Date is null || data.Classification is null)).ToList();
+            _moneyUsedData.UploadMonetaryData(uploaddata, State.TargetYear, State.TargetMonth);
+            ParentForm.InputGridView.Rows.Clear();
+            this.ReflectGridFromDB();
         }
 
         /// <summary>
