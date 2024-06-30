@@ -50,4 +50,7 @@
       <Version>1.0.118</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controller\" />
+  </ItemGroup>
 </Project>

@@ -1,4 +1,6 @@
-﻿using MainMenu.Controller;
+﻿using DBConnector.Accessor;
+using DBConnector.Data;
+using DBConnector.Service;
 using System;
 using System.Windows.Forms;
 
@@ -9,22 +11,41 @@ namespace MainMenu
         public MenuForm()
         {
             InitializeComponent();
-            DataController = new DataController();
-            this.TableNameComboBox.DataSource = DataController.MonthlyTableNames;
+
+            _service = new MenuFormService(
+                new MonthlyFundData(new MonetaryManagementDataAdapter()),
+                new MoneyUsedData(new MonetaryManagementDataAdapter()));
+            if (!_service.IsExistFirstBalance())
+            {
+                _service.InsertFromPreviousMonth();
+            }
+            if (!_service.IsExistMonetaryTable())
+            {
+                _service.CreateMonetaryTable();
+            }
+
             //更新処理アクションで行いたい処理を具体実装する
             this.ReflectNowBalance =
                () =>
                {
-                   this.NowBalanceValue = DataController.GetCurrentBalance();
+                   var model = _service.CreateViewModel();
+                   this.TableNameComboBox.DataSource = model.MonthlyTableNames;
+                   this.NowBalanceValue = model.CurrentBalance;
                    this.NowBalanceLabel.Text = this.NowBalanceValue.ToString();
                    this.NowBalanceLabel.Update();
                };
         }
 
-        private DataController DataController { get; }
-        //更新処理アクション
+        private readonly MenuFormService _service;
+
+        /// <summary>
+        /// 更新処理アクション
+        /// </summary>
         private Action ReflectNowBalance;
-        //現在金額（10進数型）
+
+        /// <summary>
+        /// 現在金額（10進数型）
+        /// </summary>
         private decimal NowBalanceValue;
 
         private void Form1_Load(object sender, EventArgs e)
@@ -44,11 +65,13 @@ namespace MainMenu
         {
             FundCollator.FrontEnd.FundCollatorFormAccessor.RunFundCollatorForm(this.NowBalanceValue);
             this.Show();
+            this.ReflectNowBalance();
         }
 
         private void TableNameComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             this.sumByClassBox.RelfectFromUsedData((string)TableNameComboBox.SelectedItem);
+            this.ReflectNowBalance();
         }
     }
 }
