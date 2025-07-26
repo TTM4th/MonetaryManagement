@@ -3,6 +3,7 @@ using DBConnector.Data;
 using DBConnector.Model;
 using DBConnector.Service;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MainMenu
@@ -17,16 +18,39 @@ namespace MainMenu
                 new MonthlyFundData(new MonetaryManagementDataAdapter()),
                 new MoneyUsedData(new MonetaryManagementDataAdapter())
                 );
+            // MonthlyFundテーブルが存在しない場合は作成・初期化する
             if (!_service.IsExistMonthlyFundTable())
             {
                 _service.CreateMonthlyFundTable();
             }
+            // 初期残高データが存在しない場合
             if (!_service.IsExistFirstBalance())
             {
-                _service.InsertFromPreviousMonth();
+                var insertPrice = 0m;
+
+                var recentInitialBalance = _service.RecentInitialBalance;
+                if (recentInitialBalance.HasValue)
+                {
+                    // 直近の初期残高が存在する場合は、現在年月の1か月前の月別テーブル内に登録された利用金額合計値を引いた値を当月の初期残高として登録する
+                    insertPrice = recentInitialBalance.Value - _service.GetMonthlySumPrice(_service.MonthlyTableNames.First());
+                }
+                else
+                { 
+                    // 直近の最新残高が存在しない場合（初回起動時を想定）は、初期残高入力モーダル経由でユーザに初期残高を入力してもらう
+                    using (var form = new NumericInputForm())
+                    {
+                        if (form.ShowDialog() == DialogResult.OK)
+                        {
+                            insertPrice = (decimal)form.Result;
+                        }
+                    }
+                }
+
+                _service.InsertMonthlyFundRecord(insertPrice);
             }
             if (!_service.IsExistMonetaryTable())
             {
+                // 現在年月の月別テーブルが存在しない場合は、作成・初期化する
                 _service.CreateMonetaryTable();
             }
 
